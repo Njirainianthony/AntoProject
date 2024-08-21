@@ -34,14 +34,14 @@ import com.example.antoproject.R
 import com.example.antoproject.navigation.ROUT_ABOUT
 import com.example.antoproject.ui.theme.Blue
 import com.example.antoproject.ui.theme.Lavender
-
+import com.example.antoproject.ui.theme.Lightblue
 
 
 @Composable
 fun HomeScreen(navController: NavController){
     Column(modifier = Modifier
         .fillMaxSize()
-        .background(Lavender),
+        .background(Blue),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
 
@@ -82,7 +82,7 @@ fun HomeScreen(navController: NavController){
                 .fillMaxWidth()
                 .height(50.dp)
                 .padding(start = 20.dp, end = 20.dp),
-            colors = ButtonDefaults.buttonColors(Blue),
+            colors = ButtonDefaults.buttonColors(Lightblue),
             shape = RoundedCornerShape(10.dp)
         ) {
 
@@ -99,6 +99,6 @@ fun HomeScreen(navController: NavController){
 @Preview(showBackground = true)
 fun HomeScreenPreview(){
     HomeScreen(rememberNavController())
-
 }
+
 

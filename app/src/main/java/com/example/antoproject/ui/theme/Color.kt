@@ -15,3 +15,4 @@ val Lavender = Color(0xA3673AB7)
 val Blue = Color(0xFF3F7EB5)
 //SPLASH SCREEN BACKGROUND
 val Grey = Color(0x323F66B5)
+val Lightblue = Color(0xFF2196F3)

@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.antoproject.models.User
+import com.example.antoproject.navigation.ROUT_ADMIN
+import com.example.antoproject.navigation.ROUT_DASHADMIN
 import com.example.antoproject.navigation.ROUT_HOME
 import com.example.antoproject.navigation.ROUT_LOGIN
 import com.example.antoproject.navigation.ROUT_SIGN
@@ -59,7 +61,6 @@ class AuthViewModel(var navController: NavController, var context: Context){
         progress.show()
 
         if (email.isBlank() || password.isBlank()){
-            progress.dismiss()
             Toast.makeText(context,"Please email and password cannot be blank", Toast.LENGTH_LONG).show()
         }else {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -72,6 +73,30 @@ class AuthViewModel(var navController: NavController, var context: Context){
                 }
             }
 
+        }
+    }
+
+    fun adminlogin(email: String, password: String){
+        progress.show()
+
+        if (email.isBlank() || password.isBlank()){
+            Toast.makeText(context,"Please email and password cannot be blank", Toast.LENGTH_LONG).show()
+        }
+        else if(email=="anthonynjiraini@gamil.com"&&password=="Anthonynjoroge04*"){
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                progress.dismiss()
+                if (it.isSuccessful){
+                    Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
+                    navController.navigate(ROUT_DASHADMIN)
+                }else{
+                    Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
+
+        else{
+            navController.navigate(ROUT_ADMIN)
         }
     }
 

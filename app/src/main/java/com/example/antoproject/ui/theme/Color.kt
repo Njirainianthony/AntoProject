@@ -16,3 +16,4 @@ val Blue = Color(0xFF3F7EB5)
 //SPLASH SCREEN BACKGROUND
 val Grey = Color(0x323F66B5)
 val Lightblue = Color(0xFF2196F3)
+val Bluey = Color(0x323F5CB5)

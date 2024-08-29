@@ -1,6 +1,8 @@
 package com.example.antoproject.ui.theme.screens.signup
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
@@ -18,6 +22,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -32,10 +37,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -49,6 +58,7 @@ import com.example.antoproject.data.AuthViewModel
 import com.example.antoproject.navigation.ROUT_HOME
 import com.example.antoproject.navigation.ROUT_LOGIN
 import com.example.antoproject.ui.theme.Blue
+import com.example.antoproject.ui.theme.Bluey
 import com.example.antoproject.ui.theme.Lightblue
 
 @Composable
@@ -58,37 +68,50 @@ fun SignUpScreen(navController: NavController){
 
 
     Column(
+
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 20.dp)
-            .paint(
-                painterResource(id = R.drawable.backimg5),
-                contentScale = ContentScale.FillBounds
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(top = 30.dp, bottom = 30.dp)
+            .verticalScroll(rememberScrollState())
+            .background(Bluey),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+
         ) {
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
 
         Image(
-            painter = painterResource(id = R.drawable.connecticon),
-            contentDescription ="home",
+            painter = painterResource(id = R.drawable.hospitalicon),
+            contentDescription ="hospital",
             modifier = Modifier
-                .size(100.dp),
-            contentScale = ContentScale.Crop
+                .size(180.dp),
+            contentScale = ContentScale.Crop,
+
 
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-       Card (modifier = Modifier.padding(20.dp)){
+       Card (modifier = Modifier.padding(start = 30.dp, top = 30.dp, bottom = 40.dp, end = 30.dp),
+           shape = RoundedCornerShape(30.dp),
+           colors = CardDefaults.cardColors(White),
+
+
+       ){
+
+
+           Spacer(modifier = Modifier.height(10.dp))
+
+
            Text(
                text = "Sign Up",
                fontSize = 30.sp,
                fontFamily = FontFamily.Serif,
-               color = Color.Black
-
+               color = Color.Black,
+               fontWeight = FontWeight.Bold,
+               modifier = Modifier.padding(start = 120.dp)
            )
 
            var name by remember { mutableStateOf("") }
@@ -114,11 +137,15 @@ fun SignUpScreen(navController: NavController){
 
                value = name,
                onValueChange ={name=it},
-               label = { Text(text = "Full Name")},
+               label = { Text(
+                   text = "Full Name",
+                   color = Black
+               )},
                modifier = Modifier
                    .fillMaxWidth()
                    .padding(start = 20.dp, end = 20.dp),
-               leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = "person", tint = Blue)},
+               shape = RoundedCornerShape(10.dp),
+               leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = "person", tint = Black)},
                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
 
                )
@@ -129,11 +156,15 @@ fun SignUpScreen(navController: NavController){
 
                value = email,
                onValueChange ={email=it},
-               label = { Text(text = "Email Address")},
+               label = { Text(
+                   text = "Email Address",
+                   color = Black
+               )},
                modifier = Modifier
                    .fillMaxWidth()
                    .padding(start = 20.dp, end = 20.dp),
-               leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "email", tint = Blue)},
+               shape = RoundedCornerShape(10.dp),
+               leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "email", tint = Black)},
                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
 
                )
@@ -146,51 +177,55 @@ fun SignUpScreen(navController: NavController){
                onValueChange ={password=it},
                label = { Text(
                    text = "Enter password",
-                   color = Color.White
+                   color = Color.Black
                )},
                modifier = Modifier
                    .fillMaxWidth()
                    .padding(start = 20.dp, end = 20.dp),
-               leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "password", tint = Blue)},
+               shape = RoundedCornerShape(10.dp),
+               leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "password", tint = Black)},
                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                visualTransformation = visualTransformation,
                trailingIcon = {
                    val icon = if (passwordVisible) {
                        //Download a password show icon
-                       painterResource(id = R.drawable.passwordshow)
+                       painterResource(id = R.drawable.passwordshow,)
                    } else {
                        //Download a password hide icon
                        painterResource(id = R.drawable.passwordhide)
                    }
-                   IconButton(onClick = { togglePasswordVisibility() }) {
+                   IconButton(onClick = { togglePasswordVisibility() }, modifier = Modifier.size(20.dp)) {
                        Icon(painter = icon, contentDescription = null)
                    }
                }
 
            )
 
-           Spacer(modifier = Modifier.height(30.dp))
+           Spacer(modifier = Modifier.height(20.dp))
 
            OutlinedTextField(
 
                value = confpassword,
                onValueChange ={confpassword=it},
-               label = { Text(text = "Confirm Password")},
+               label = { Text(text = "Confirm Password",
+                   color = Color.Black
+               )},
                modifier = Modifier
                    .fillMaxWidth()
                    .padding(start = 20.dp, end = 20.dp),
-               leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "password", tint = Blue)},
+               shape = RoundedCornerShape(10.dp),
+               leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "password", tint = Black)},
                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                visualTransformation = visualTransformation,
                trailingIcon = {
                    val icon = if (passwordVisible) {
                        //Download a password show icon
-                       painterResource(id = R.drawable.passwordshow)
+                       painterResource(id = R.drawable.passwordshow,)
                    } else {
                        //Download a password hide icon
                        painterResource(id = R.drawable.passwordhide)
                    }
-                   IconButton(onClick = { togglePasswordVisibility() }) {
+                   IconButton(onClick = { togglePasswordVisibility() }, modifier = Modifier.size(20.dp)) {
                        Icon(painter = icon, contentDescription = null)
                    }
                }
@@ -216,11 +251,13 @@ fun SignUpScreen(navController: NavController){
                    .fillMaxWidth()
                    .height(50.dp)
                    .padding(start = 20.dp, end = 20.dp),
-               colors = ButtonDefaults.buttonColors(Lightblue),
+               colors = ButtonDefaults.buttonColors(Black),
                shape = RoundedCornerShape(10.dp)
            ) {
 
-               Text(text = "Create Account")
+               Text(text = "Create Account",
+                   color = Color.White,
+                   fontWeight = FontWeight.Bold)
 
            }
 
@@ -232,13 +269,16 @@ fun SignUpScreen(navController: NavController){
                    .fillMaxWidth()
                    .height(50.dp)
                    .padding(start = 20.dp, end = 20.dp),
-               colors = ButtonDefaults.buttonColors(Lightblue),
+               colors = ButtonDefaults.buttonColors(Black),
                shape = RoundedCornerShape(10.dp)
            ) {
 
-               Text(text = "Login")
+               Text(text = "Login",
+                   color = Color.White)
 
            }
+
+           Spacer(modifier = Modifier.height(20.dp))
        }
 
 

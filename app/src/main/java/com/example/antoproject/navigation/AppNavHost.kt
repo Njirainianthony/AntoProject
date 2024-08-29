@@ -7,11 +7,21 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.antoproject.ui.theme.screens.about.AboutScreen
+import com.example.antoproject.ui.theme.screens.adminlogin.AdminLoginScreen
+import com.example.antoproject.ui.theme.screens.dashboard.DashboardScreen
+import com.example.antoproject.ui.theme.screens.dashboardadmin.DashboardAdminScreen
+import com.example.antoproject.ui.theme.screens.doctors.AddDoctorsScreen
+import com.example.antoproject.ui.theme.screens.doctors.ViewDoctorScreen
+import com.example.antoproject.ui.theme.screens.gallery.GalleryScreen
 
 import com.example.antoproject.ui.theme.screens.home.HomeScreen
 import com.example.antoproject.ui.theme.screens.login.LoginScreen
+import com.example.antoproject.ui.theme.screens.nurses.AddNursesScreen
+import com.example.antoproject.ui.theme.screens.nurses.ViewNursesScreen
+import com.example.antoproject.ui.theme.screens.products.AddProductsScreen
 import com.example.antoproject.ui.theme.screens.signup.SignUpScreen
 import com.example.antoproject.ui.theme.screens.splash.SplashScreen
+import com.example.propertyplus.ui.theme.screens.products.ViewProductsScreen
 
 @Composable
 fun AppNavHost(
@@ -44,6 +54,47 @@ fun AppNavHost(
         composable(ROUT_LOGIN) {
             LoginScreen(navController = navController)
         }
+
+        composable(ROUT_DASHBOARD) {
+            DashboardScreen(navController = navController)
+        }
+
+        composable(ROUT_GALLERY) {
+            GalleryScreen(navController = navController)
+        }
+
+        composable(ROUT_ADMIN) {
+            AdminLoginScreen(navController = navController)
+        }
+
+        composable(ROUT_DASHADMIN) {
+            DashboardAdminScreen(navController = navController)
+        }
+
+        composable(ADD_PRODUCTS_URL) {
+            AddProductsScreen(navController = navController)
+        }
+
+        composable(VIEW_PRODUCTS_URL) {
+            ViewProductsScreen(navController = navController)
+        }
+
+        composable(ADD_DOCTORS_URL) {
+            AddDoctorsScreen(navController = navController)
+        }
+
+        composable(VIEW_DOCTORS_URL) {
+            ViewDoctorScreen(navController = navController)
+        }
+
+        composable(ADD_NURSES_URL) {
+            AddNursesScreen(navController = navController)
+        }
+
+        composable(VIEW_DOCTORS_URL) {
+            ViewNursesScreen(navController = navController)
+        }
+
 
     }
 }

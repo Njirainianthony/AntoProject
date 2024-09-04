@@ -27,6 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.antoproject.R
 import com.example.antoproject.navigation.ADD_DOCTORS_URL
+import com.example.antoproject.navigation.ADD_NURSES_URL
 import com.example.antoproject.navigation.ADD_PRODUCTS_URL
 import com.example.antoproject.navigation.ROUT_HOME
 import com.example.antoproject.ui.theme.Bluey
@@ -102,7 +103,7 @@ fun DashboardAdminScreen(navController: NavController){
                     .fillMaxWidth()
                     .height(230.dp)
                     .padding(20.dp)
-                    .clickable { navController.navigate(ROUT_HOME) },
+                    .clickable { navController.navigate(ADD_NURSES_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
 

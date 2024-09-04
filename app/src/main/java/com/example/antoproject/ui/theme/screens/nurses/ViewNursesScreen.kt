@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -24,17 +25,21 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -46,8 +51,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -58,18 +66,22 @@ import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.antoproject.R
 import com.example.antoproject.data.DoctorViewModel
 import com.example.antoproject.data.NurseViewModel
 import com.example.antoproject.models.Doctor
 import com.example.antoproject.models.Nurse
 import com.example.antoproject.navigation.ADD_NURSES_URL
 import com.example.antoproject.navigation.ADD_PRODUCTS_URL
+import com.example.antoproject.ui.theme.Bluey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ViewNursesScreen(navController: NavController) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(Bluey)) {
 
         var context = LocalContext.current
         var nurseRepository = NurseViewModel(navController, context)
@@ -125,18 +137,39 @@ fun ViewNursesScreen(navController: NavController) {
 
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "Nurses Working here at Uhai Kenya",
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily.SansSerif) })
+                    modifier = Modifier.padding(bottom = 40.dp),
+                    colors = TopAppBarDefaults.topAppBarColors(Color.Black),
+                    title = {
+                        Row {
+
+                            Image(painter = painterResource(id = R.drawable.nurseicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(20.dp),
+                                colorFilter = ColorFilter.tint(Color.White)
+                            )
+
+                            Text(text = "Nurses",
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                fontSize = 20.sp,
+                                fontFamily = FontFamily.Serif,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
+
+                        }
+
+                    }
+                )
 
             },
 
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { /*TODO*/ },
-                    containerColor = Color.LightGray) {
+                    containerColor = Color.Black,
+                    contentColor = Color.White) {
                     IconButton(onClick = {
                         navController.navigate(ADD_NURSES_URL)
                     }) {
@@ -149,7 +182,8 @@ fun ViewNursesScreen(navController: NavController) {
             content = @Composable {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .background(Bluey),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(text = "All Nurses",
@@ -157,7 +191,7 @@ fun ViewNursesScreen(navController: NavController) {
                         fontFamily = FontFamily.Cursive,
                         color = Color.Red)
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(50.dp))
 
                     LazyColumn(){
                         items(nurses){
@@ -191,14 +225,17 @@ fun NurseItem(name:String, id:String,
 
     //1 item
     Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(15.dp)
+        .fillMaxWidth(),
+        verticalArrangement = Arrangement.Center
+
     ) {
         Card (modifier = Modifier
             .height(250.dp)
-            .width(370.dp)
+            .fillMaxWidth()
+            .padding(20.dp)
         ) {
-            Box (modifier = Modifier.fillMaxSize(),
+            Box (modifier = Modifier
+                .fillMaxSize(),
                 contentAlignment = Alignment.Center) {
                 Image(
                     painter = rememberAsyncImagePainter(nurseImage),
@@ -219,13 +256,13 @@ fun NurseItem(name:String, id:String,
                             )
                         )
                         .fillMaxWidth()
-                        .padding(7.dp)) {
+                        ) {
                         //details
 
                         Text(text = "Name : $name",
-                            fontSize = 27.sp,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.ExtraBold,
-                            fontFamily = FontFamily.Default,
+                            fontFamily = FontFamily.Serif,
                             color = Color.White
                         )
 
@@ -244,17 +281,26 @@ fun NurseItem(name:String, id:String,
                         ){
                             Row (
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.End
                             ){
 
-                                IconButton(onClick = { nurseRepository.updateNurse(id) }) {
-                                    Icon(imageVector = Icons.Default.Edit, contentDescription = "", tint = Color.White)
+                                Button(onClick = { nurseRepository.updateNurse(id) },
+                                    colors = ButtonDefaults.buttonColors(Color.Black)) {
+                                    Text(text = "Update",
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White,
+                                        fontFamily = FontFamily.Serif)
                                 }
+
 
                                 Spacer(modifier = Modifier.width(5.dp))
 
-                                IconButton(onClick = { nurseRepository.deleteNurses(id) }) {
-                                    Icon(imageVector = Icons.Default.Delete, contentDescription = "", tint = Color.White)
+                                Button(onClick = { nurseRepository.deleteNurses(id) }) {
+
+                                    Text(text = "Delete",
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White,
+                                        fontFamily = FontFamily.Serif)
+
                                 }
 
 

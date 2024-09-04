@@ -1,4 +1,4 @@
-package com.example.antoproject.ui.theme.screens.products
+package com.example.antoproject.ui.theme.screens.wards
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -67,16 +67,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.antoproject.R
-import com.example.antoproject.data.ProductViewModel
-import com.example.antoproject.navigation.ADD_PRODUCTS_URL
-import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
+import com.example.antoproject.data.NurseViewModel
+import com.example.antoproject.data.WardViewModel
+import com.example.antoproject.navigation.ADD_NURSES_URL
 import com.example.antoproject.ui.theme.Bluey
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddProductsScreen(navController: NavController){
+fun AddWardsScreen(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -135,29 +134,31 @@ fun AddProductsScreen(navController: NavController){
                     containerColor = Color.Black
                 ) {
                     IconButton(onClick = {
-                        navController.navigate(ADD_PRODUCTS_URL)
+                        navController.navigate(ADD_NURSES_URL)
                     },
-                        ) {
+                    ) {
                         Icon(imageVector = Icons.Default.Add,
                             contentDescription = "menu", tint = Color.White)
                     }
                 }
             },
             //Content Section
-            content = @Composable{
+            content = @Composable {
                 Card(colors = CardDefaults.cardColors(Color.White),
-                    modifier = Modifier.padding(start = 30.dp, top = 30.dp, bottom = 150.dp, end = 30.dp)) {
+                    shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 30.dp, bottomEnd = 30.dp),
+
+                    modifier = Modifier.padding(start = 30.dp, end = 30.dp, top = 80.dp, bottom = 150.dp)) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState())
-                            .padding(30.dp)
+                            .padding(top = 80.dp, start = 30.dp, end = 30.dp,)
                         ,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
 
                         Image(
-                            painter = painterResource(id = R.drawable.canteen1),
+                            painter = painterResource(id = R.drawable.wardicon),
                             contentDescription ="home",
                             modifier = Modifier
                                 .size(150.dp),
@@ -167,55 +168,31 @@ fun AddProductsScreen(navController: NavController){
                             )
 
 
-                        Spacer(modifier = Modifier.height(15.dp))
+
+
+                        Spacer(modifier = Modifier.height(50.dp))
 
                         Text(
-                            text = "Upload Here!",
+                            text = "Add Here!",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Serif)
 
-                        var productName by remember { mutableStateOf("") }
-                        var productQuantity by remember { mutableStateOf("") }
-                        var productPrice by remember { mutableStateOf("") }
-                        var phone by remember { mutableStateOf("") }
+                        var wardName by remember { mutableStateOf("") }
                         val context = LocalContext.current
 
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedTextField(
-                            value = productName,
-                            onValueChange = { productName = it },
-                            label = { Text(text = "Product name ", color = Color.Black, fontFamily = FontFamily.Serif) },
+                            value = wardName,
+                            onValueChange = { wardName = it },
+                            label = { Text(text = "Ward name ", color = Color.Black, fontFamily = FontFamily.Serif) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                         )
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        OutlinedTextField(
-                            value = productQuantity,
-                            onValueChange = { productQuantity = it },
-                            label = { Text(text = "Product quantity e.g 250g ", fontFamily = FontFamily.Serif, color = Color.Black) },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-                        )
 
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        OutlinedTextField(
-                            value = productPrice,
-                            onValueChange = { productPrice = it },
-                            label = { Text(text = "Product price e.g Ksh.500",fontFamily = FontFamily.Serif, color = Color.Black) },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-                        )
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        OutlinedTextField(
-                            value = phone,
-                            onValueChange = { phone = it },
-                            label = { Text(text = "Phone",fontFamily = FontFamily.Serif, color = Color.Black) },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-                        )
 
                         Spacer(modifier = Modifier.height(20.dp))
 
@@ -224,7 +201,7 @@ fun AddProductsScreen(navController: NavController){
                         //---------------------IMAGE PICKER START-----------------------------------//
 
                         var modifier = Modifier
-                        ImagePicker(modifier,context, navController, productName.trim(), productQuantity.trim(), productPrice.trim(),phone.trim())
+                        ImagePicker(modifier,context, navController, wardName.trim())
 
                         //---------------------IMAGE PICKER END-----------------------------------//
 
@@ -259,7 +236,7 @@ val bottomNavItems = listOf(
 
     BottomNavItem(
         title = "Upload",
-        route="add_products",
+        route="addwards",
         selectedIcon= Icons.Filled.Add,
         unselectedIcon= Icons.Outlined.Add,
         hasNews = true,
@@ -268,7 +245,7 @@ val bottomNavItems = listOf(
 
     BottomNavItem(
         title = "View",
-        route="view_products",
+        route="viewwards",
         selectedIcon= Icons.Filled.Info,
         unselectedIcon= Icons.Outlined.Info,
         hasNews = true,
@@ -291,7 +268,7 @@ data class BottomNavItem(
 
 
 @Composable
-fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: NavController, name:String, quantity:String, price:String, phone:String) {
+fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: NavController, name:String) {
     var hasImage by remember { mutableStateOf(false) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -336,9 +313,8 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: 
 
             Button(onClick = {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
-                var productRepository = ProductViewModel(navController,context)
-                productRepository.uploadProduct(name, quantity, price,phone,imageUri!!)
-
+                var wardRepository = WardViewModel(navController,context)
+                wardRepository.uploadWard(name,imageUri!!)
 
 
             },
@@ -352,7 +328,7 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: 
 
 @Composable
 @Preview(showBackground = true)
-fun AddProductsScreenPreview(){
-    AddProductsScreen(navController = rememberNavController())
+fun AddWardsScreenPreview(){
+    AddWardsScreen(navController = rememberNavController())
 
 }

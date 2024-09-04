@@ -1,7 +1,6 @@
-package com.example.antoproject.ui.theme.screens.doctors
+package com.example.antoproject.ui.theme.screens.wards
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,14 +16,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -32,7 +31,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -58,33 +56,34 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.antoproject.R
-import com.example.antoproject.data.DoctorViewModel
-import com.example.antoproject.data.ProductViewModel
-import com.example.antoproject.models.Doctor
-import com.example.antoproject.models.Product
-import com.example.antoproject.navigation.ADD_DOCTORS_URL
-import com.example.antoproject.navigation.ADD_PRODUCTS_URL
+import com.example.antoproject.data.NurseViewModel
+import com.example.antoproject.data.WardViewModel
+import com.example.antoproject.models.Nurse
+import com.example.antoproject.models.Ward
+import com.example.antoproject.navigation.ADD_NURSES_URL
+import com.example.antoproject.navigation.ADD_WARDS_URL
 import com.example.antoproject.ui.theme.Bluey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ViewDoctorScreen(navController: NavController) {
-    Column(modifier = Modifier.fillMaxSize()) {
+fun ViewWardsScreen(navController: NavController) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(Bluey)) {
 
         var context = LocalContext.current
-        var doctorRepository = DoctorViewModel(navController, context)
+        var wardRepository = WardViewModel(navController, context)
 
 
-        val emptyDoctorState = remember { mutableStateOf(Doctor("","","","")) }
-        var emptyDoctorListState = remember { mutableStateListOf<Doctor>() }
+        val emptyWardState = remember { mutableStateOf(Ward("","","")) }
+        var emptyWardListState = remember { mutableStateListOf<Ward>() }
 
-        var doctors = doctorRepository.allDoctors(emptyDoctorState, emptyDoctorListState)
+        var wards = wardRepository.allWards(emptyWardState, emptyWardListState)
 
 
         var selected by remember { mutableIntStateOf(0) }
@@ -93,7 +92,7 @@ fun ViewDoctorScreen(navController: NavController) {
                 NavigationBar (
                     containerColor = Color.Black,
                     contentColor = Color.White){
-                    com.example.antoproject.ui.theme.screens.doctors.bottomNavItems.forEachIndexed { index, bottomNavItem ->
+                    com.example.antoproject.ui.theme.screens.wards.bottomNavItems.forEachIndexed { index, bottomNavItem ->
                         NavigationBarItem(
                             selected = index == selected,
                             onClick = {
@@ -136,13 +135,13 @@ fun ViewDoctorScreen(navController: NavController) {
                     title = {
                         Row {
 
-                            Image(painter = painterResource(id = R.drawable.doctoricon),
+                            Image(painter = painterResource(id = R.drawable.wardicon),
                                 contentDescription = "home",
                                 modifier = Modifier.size(20.dp),
                                 colorFilter = ColorFilter.tint(Color.White)
                             )
 
-                            Text(text = "Doctors",
+                            Text(text = "Wards",
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 textAlign = TextAlign.Center,
@@ -153,6 +152,7 @@ fun ViewDoctorScreen(navController: NavController) {
                             )
 
                         }
+
                     }
                 )
 
@@ -164,7 +164,7 @@ fun ViewDoctorScreen(navController: NavController) {
                     containerColor = Color.Black,
                     contentColor = Color.White) {
                     IconButton(onClick = {
-                        navController.navigate(ADD_DOCTORS_URL)
+                        navController.navigate(ADD_WARDS_URL)
                     }) {
                         Icon(imageVector = Icons.Default.Add,
                             contentDescription = "menu")
@@ -179,7 +179,7 @@ fun ViewDoctorScreen(navController: NavController) {
                         .background(Bluey),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "All doctors",
+                    Text(text = "All Wards",
                         fontSize = 30.sp,
                         fontFamily = FontFamily.Cursive,
                         color = Color.Red)
@@ -187,14 +187,13 @@ fun ViewDoctorScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(50.dp))
 
                     LazyColumn(){
-                        items(doctors){
-                            DoctorItem(
+                        items(wards){
+                            WardItem(
                                 name = it.name,
-                                phone = it.phone,
                                 id = it.id,
                                 navController = navController,
-                                doctorRepository = doctorRepository,
-                                doctorImage = it.imageUrl
+                                wardRepository = wardRepository,
+                                wardImage = it.imageUrl
                             )
                         }
                     }
@@ -213,9 +212,9 @@ fun ViewDoctorScreen(navController: NavController) {
 
 
 @Composable
-fun DoctorItem(name:String, phone:String, id:String,
-                navController: NavController,
-                doctorRepository: DoctorViewModel, doctorImage:String) {
+fun WardItem(name:String, id:String,
+              navController: NavController,
+              wardRepository: WardViewModel, wardImage:String) {
 
     //1 item
     Column(modifier = Modifier
@@ -226,11 +225,13 @@ fun DoctorItem(name:String, phone:String, id:String,
         Card (modifier = Modifier
             .height(250.dp)
             .fillMaxWidth()
+            .padding(20.dp)
         ) {
-            Box (modifier = Modifier.fillMaxSize(),
+            Box (modifier = Modifier
+                .fillMaxSize(),
                 contentAlignment = Alignment.Center) {
                 Image(
-                    painter = rememberAsyncImagePainter(doctorImage),
+                    painter = rememberAsyncImagePainter(wardImage),
                     contentDescription = "null",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -271,42 +272,28 @@ fun DoctorItem(name:String, phone:String, id:String,
                                 .fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
                         ){
-                            OutlinedButton(
-                                onClick = {
-                                    val smsIntent= Intent(Intent.ACTION_SENDTO)
-                                    smsIntent.data="smsto:$phone".toUri()
-                                    smsIntent.putExtra("sms_body","Hello Patient, How can we Help you today?")
-                                    mContext.startActivity(smsIntent)
-                                },
-                                shape = RoundedCornerShape(8.dp),
-
-                                ) {
-                                Row {
-                                    Icon(
-                                        imageVector = Icons.Default.Send,
-                                        contentDescription = "Message Seller"
-                                        )
-                                    Spacer(modifier = Modifier.width(3.dp))
-                                    Text(
-                                        text = "Message Doctor",
-                                        color = Color.White,
-                                        fontFamily = FontFamily.Serif
-                                    )
-                                }
-                            }
                             Row (
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Start
                             ){
 
-                                IconButton(onClick = { doctorRepository.updateDoctor(id) }) {
-                                    Icon(imageVector = Icons.Default.Edit, contentDescription = "", tint = Color.White)
+                                Button(onClick = { wardRepository.updateWard(id) },
+                                    colors = ButtonDefaults.buttonColors(Color.Black)) {
+                                    Text(text = "Update",
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White,
+                                        fontFamily = FontFamily.Serif)
                                 }
+
 
                                 Spacer(modifier = Modifier.width(5.dp))
 
-                                IconButton(onClick = { doctorRepository.deleteDoctor(id) }) {
-                                    Icon(imageVector = Icons.Default.Delete, contentDescription = "", tint = Color.White)
+                                Button(onClick = { wardRepository.deleteWards(id) }) {
+
+                                    Text(text = "Delete",
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White,
+                                        fontFamily = FontFamily.Serif)
+
                                 }
 
 
@@ -332,8 +319,8 @@ fun DoctorItem(name:String, phone:String, id:String,
 
 @Composable
 @Preview(showBackground = true)
-fun ViewDoctorScreenPreview(){
+fun ViewWardsScreenPreview(){
 
-    ViewDoctorScreen(navController = rememberNavController())
+    ViewWardsScreen(navController = rememberNavController())
 
 }

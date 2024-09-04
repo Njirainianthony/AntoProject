@@ -1,6 +1,7 @@
-package com.example.antoproject.ui.theme.screens.products
+package com.example.antoproject.ui.theme.screens.bookings
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
@@ -10,12 +11,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -58,6 +61,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -67,16 +71,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.antoproject.R
+import com.example.antoproject.data.BookingViewModel
 import com.example.antoproject.data.ProductViewModel
+import com.example.antoproject.navigation.ADD_BOOKING_URL
 import com.example.antoproject.navigation.ADD_PRODUCTS_URL
-import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
 import com.example.antoproject.ui.theme.Bluey
-
+import java.util.Calendar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddProductsScreen(navController: NavController){
+fun AddBookingScreen(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -91,7 +96,7 @@ fun AddProductsScreen(navController: NavController){
             bottomBar = {
                 NavigationBar (
                     containerColor = Color.Black,
-                    contentColor = Color.Black){
+                    contentColor = Color.White){
                     bottomNavItems.forEachIndexed { index, bottomNavItem ->
                         NavigationBarItem(
                             selected = index == selected,
@@ -132,88 +137,139 @@ fun AddProductsScreen(navController: NavController){
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { /*TODO*/ },
-                    containerColor = Color.Black
+                    containerColor = Color.Black,
+                    contentColor = Color.White
                 ) {
                     IconButton(onClick = {
-                        navController.navigate(ADD_PRODUCTS_URL)
+                        navController.navigate(ADD_BOOKING_URL)
                     },
-                        ) {
+                    ) {
                         Icon(imageVector = Icons.Default.Add,
                             contentDescription = "menu", tint = Color.White)
                     }
                 }
             },
             //Content Section
-            content = @Composable{
+            content = @Composable {
                 Card(colors = CardDefaults.cardColors(Color.White),
-                    modifier = Modifier.padding(start = 30.dp, top = 30.dp, bottom = 150.dp, end = 30.dp)) {
+                    modifier = Modifier.padding(start = 10.dp, top = 30.dp, bottom = 150.dp, end = 10.dp)) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState())
-                            .padding(30.dp)
+                            .padding(10.dp)
                         ,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
 
                         Image(
-                            painter = painterResource(id = R.drawable.canteen1),
+                            painter = painterResource(id = R.drawable.bookingicon),
                             contentDescription ="home",
                             modifier = Modifier
-                                .size(150.dp),
+                                .size(120.dp),
                             contentScale = ContentScale.Crop,
 
 
                             )
 
 
-                        Spacer(modifier = Modifier.height(15.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         Text(
-                            text = "Upload Here!",
+                            text = "Book An Appointment",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Serif)
 
-                        var productName by remember { mutableStateOf("") }
-                        var productQuantity by remember { mutableStateOf("") }
-                        var productPrice by remember { mutableStateOf("") }
+                        var bookingName by remember { mutableStateOf("") }
+                        var bookingProblem by remember { mutableStateOf("") }
+                        var bookingDate by remember { mutableStateOf("") }
                         var phone by remember { mutableStateOf("") }
                         val context = LocalContext.current
 
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedTextField(
-                            value = productName,
-                            onValueChange = { productName = it },
-                            label = { Text(text = "Product name ", color = Color.Black, fontFamily = FontFamily.Serif) },
+                            modifier = Modifier.width(310.dp),
+                            value = bookingName,
+                            onValueChange = { bookingName = it },
+                            label = { Text(text = "Enter your name", color = Color.Black, fontFamily = FontFamily.Serif) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                         )
 
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedTextField(
-                            value = productQuantity,
-                            onValueChange = { productQuantity = it },
-                            label = { Text(text = "Product quantity e.g 250g ", fontFamily = FontFamily.Serif, color = Color.Black) },
+                            modifier = Modifier.width(310.dp),
+                            value = bookingProblem,
+                            onValueChange = { bookingProblem = it },
+                            label = { Text(text = "Describe your problem", fontFamily = FontFamily.Serif, color = Color.Black) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                         )
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        OutlinedTextField(
-                            value = productPrice,
-                            onValueChange = { productPrice = it },
-                            label = { Text(text = "Product price e.g Ksh.500",fontFamily = FontFamily.Serif, color = Color.Black) },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-                        )
+                        //DateField
+                        var selectedDate by remember { mutableStateOf<String?>(null) }
+                        var showDatePicker by remember { mutableStateOf(false) }
+
+
+
+                        Row(modifier = Modifier.padding(start = 20.dp, end = 20.dp)){
+
+                            Button(onClick = {
+                                val calendar = Calendar.getInstance()
+                                val year = calendar.get(Calendar.YEAR)
+                                val month = calendar.get(Calendar.MONTH)
+                                val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+                                DatePickerDialog(
+                                    //Don't forget to create the context variable located just below
+                                    //the aboutscreen function
+                                    context,
+                                    { _, selectedYear, selectedMonth, selectedDay ->
+                                        selectedDate = "${selectedDay}/${selectedMonth + 1}/${selectedYear}"
+                                    },
+                                    year,
+                                    month,
+                                    day
+                                ).show()
+                            },
+                                shape = RoundedCornerShape(10.dp),
+                                colors = ButtonDefaults.buttonColors(Color.Gray),
+                                modifier = Modifier
+                                    .height(65.dp)
+                                    .padding(top = 10.dp, end = 10.dp)) {
+                                Text(text = "Select Date")
+                            }
+                            Spacer(modifier = Modifier.width(10.dp))
+
+                            OutlinedTextField(
+                                value = selectedDate ?: "",
+                                onValueChange = { /* No-op, as we handle value through date picker */ },
+                                label = { Text("Select Date") },
+                                readOnly = true,  // Makes the text field non-editable
+                                modifier = Modifier
+                                    .padding(bottom = 16.dp, top = 10.dp)
+                                    .width(250.dp).height(45.dp),
+                                trailingIcon = {
+                                    Text(text = "📅")  // Icon to indicate date picker
+                                },
+                                singleLine = true
+                            )
+
+
+                        }
+
+                        //End of a datefield
 
                         Spacer(modifier = Modifier.height(20.dp))
 
                         OutlinedTextField(
+                            modifier = Modifier.width(310.dp),
                             value = phone,
                             onValueChange = { phone = it },
-                            label = { Text(text = "Phone",fontFamily = FontFamily.Serif, color = Color.Black) },
+                            label = { Text(text = "Phone number",fontFamily = FontFamily.Serif, color = Color.Black) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                         )
 
@@ -224,7 +280,7 @@ fun AddProductsScreen(navController: NavController){
                         //---------------------IMAGE PICKER START-----------------------------------//
 
                         var modifier = Modifier
-                        ImagePicker(modifier,context, navController, productName.trim(), productQuantity.trim(), productPrice.trim(),phone.trim())
+                        ImagePicker(modifier,context, navController, bookingName.trim(), bookingProblem.trim(), bookingDate.trim(),phone.trim())
 
                         //---------------------IMAGE PICKER END-----------------------------------//
 
@@ -259,7 +315,7 @@ val bottomNavItems = listOf(
 
     BottomNavItem(
         title = "Upload",
-        route="add_products",
+        route="addbooking",
         selectedIcon= Icons.Filled.Add,
         unselectedIcon= Icons.Outlined.Add,
         hasNews = true,
@@ -268,7 +324,7 @@ val bottomNavItems = listOf(
 
     BottomNavItem(
         title = "View",
-        route="view_products",
+        route="viewbooking",
         selectedIcon= Icons.Filled.Info,
         unselectedIcon= Icons.Outlined.Info,
         hasNews = true,
@@ -291,7 +347,7 @@ data class BottomNavItem(
 
 
 @Composable
-fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: NavController, name:String, quantity:String, price:String, phone:String) {
+fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: NavController, name:String, problem:String, date:String, phone:String) {
     var hasImage by remember { mutableStateOf(false) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -336,15 +392,15 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: 
 
             Button(onClick = {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
-                var productRepository = ProductViewModel(navController,context)
-                productRepository.uploadProduct(name, quantity, price,phone,imageUri!!)
+                var bookingRepository = BookingViewModel(navController,context)
+                bookingRepository.uploadBooking(name, problem, date, phone, imageUri!!)
 
 
 
             },
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(Color.Black)) {
-                Text(text = "Upload")
+                Text(text = "Book", fontWeight = FontWeight.Bold)
             }
         }
     }
@@ -352,7 +408,7 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: 
 
 @Composable
 @Preview(showBackground = true)
-fun AddProductsScreenPreview(){
-    AddProductsScreen(navController = rememberNavController())
+fun AddBookingsScreenPreview(){
+    AddBookingScreen(navController = rememberNavController())
 
 }

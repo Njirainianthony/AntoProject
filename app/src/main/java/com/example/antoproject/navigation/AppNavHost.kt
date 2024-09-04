@@ -21,6 +21,8 @@ import com.example.antoproject.ui.theme.screens.nurses.ViewNursesScreen
 import com.example.antoproject.ui.theme.screens.products.AddProductsScreen
 import com.example.antoproject.ui.theme.screens.signup.SignUpScreen
 import com.example.antoproject.ui.theme.screens.splash.SplashScreen
+import com.example.antoproject.ui.theme.screens.wards.AddWardsScreen
+import com.example.antoproject.ui.theme.screens.wards.ViewWardsScreen
 import com.example.propertyplus.ui.theme.screens.products.ViewProductsScreen
 
 @Composable
@@ -91,8 +93,16 @@ fun AppNavHost(
             AddNursesScreen(navController = navController)
         }
 
-        composable(VIEW_DOCTORS_URL) {
+        composable(VIEW_NURSES_URL) {
             ViewNursesScreen(navController = navController)
+        }
+
+        composable(ADD_WARDS_URL) {
+            AddWardsScreen(navController = navController)
+        }
+
+        composable(VIEW_WARDS_URL) {
+            ViewWardsScreen(navController = navController)
         }
 
 

@@ -57,6 +57,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -65,6 +66,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.antoproject.R
 import com.example.antoproject.data.DoctorViewModel
 import com.example.antoproject.data.NurseViewModel
 import com.example.antoproject.navigation.ADD_DOCTORS_URL
@@ -157,6 +159,18 @@ fun AddNursesScreen(navController: NavController){
                         ,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
+
+                        Image(
+                            painter = painterResource(id = R.drawable.nurseicon),
+                            contentDescription ="home",
+                            modifier = Modifier
+                                .size(150.dp),
+                            contentScale = ContentScale.Crop,
+
+
+                            )
+
+
 
 
                         Spacer(modifier = Modifier.height(50.dp))
@@ -304,7 +318,6 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: 
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
                 var nurseRepository = NurseViewModel(navController,context)
                 nurseRepository.uploadNurse(name,imageUri!!)
-                navController.navigate(VIEW_NURSES_URL)
 
 
             },

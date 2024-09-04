@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -37,6 +38,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -48,8 +50,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -60,9 +64,11 @@ import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.antoproject.R
 import com.example.antoproject.data.ProductViewModel
 import com.example.antoproject.models.Product
 import com.example.antoproject.navigation.ADD_PRODUCTS_URL
+import com.example.antoproject.ui.theme.Bluey
 import com.example.antoproject.ui.theme.screens.products.bottomNavItems
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -125,18 +131,40 @@ fun ViewProductsScreen(navController: NavController) {
 
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "Available Products",
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily.SansSerif) })
+                    modifier = Modifier.padding(bottom = 40.dp),
+                    colors = TopAppBarDefaults.topAppBarColors(Color.Black),
+                    title = {
+                        Row {
+
+                            Image(painter = painterResource(id = R.drawable.canteenicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(20.dp),
+                                colorFilter = ColorFilter.tint(Color.White)
+                            )
+
+                            Text(
+                                text = "Products Available",
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                fontSize = 20.sp,
+                                fontFamily = FontFamily.Serif,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
+
+                        }
+                    }
+                )
 
             },
 
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { /*TODO*/ },
-                    containerColor = Color.LightGray) {
+                    containerColor = Color.Black,
+                    contentColor = Color.White
+                ) {
                     IconButton(onClick = {
                         navController.navigate(ADD_PRODUCTS_URL)
                     }) {
@@ -149,7 +177,8 @@ fun ViewProductsScreen(navController: NavController) {
             content = @Composable{
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .background(Bluey),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(text = "All products",
@@ -157,7 +186,7 @@ fun ViewProductsScreen(navController: NavController) {
                         fontFamily = FontFamily.Cursive,
                         color = Color.Red)
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(50.dp))
 
                     LazyColumn(){
                         items(products){
@@ -194,12 +223,12 @@ fun ProductItem(name:String, quantity:String, price:String,phone:String, id:Stri
 
     //1 item
     Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(15.dp)
+        .fillMaxWidth(),
+        verticalArrangement = Arrangement.Center
     ) {
         Card (modifier = Modifier
             .height(250.dp)
-            .width(370.dp)
+            .fillMaxWidth()
         ) {
             Box (modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center) {
@@ -222,13 +251,13 @@ fun ProductItem(name:String, quantity:String, price:String,phone:String, id:Stri
                             )
                         )
                         .fillMaxWidth()
-                        .padding(7.dp)) {
+                        ) {
                         //details
 
                         Text(text = "Name : $name",
-                            fontSize = 27.sp,
+                            fontSize = 20.sp,
                             fontWeight = FontWeight.ExtraBold,
-                            fontFamily = FontFamily.Default,
+                            fontFamily = FontFamily.Serif,
                             color = Color.White
                         )
 
@@ -262,7 +291,7 @@ fun ProductItem(name:String, quantity:String, price:String,phone:String, id:Stri
                                 onClick = {
                                     val smsIntent= Intent(Intent.ACTION_SENDTO)
                                     smsIntent.data="smsto:$phone".toUri()
-                                    smsIntent.putExtra("sms_body","Hello Seller,...?")
+                                    smsIntent.putExtra("sms_body","Hello Patient, how can we help you?")
                                     mContext.startActivity(smsIntent)
                                 },
                                 shape = RoundedCornerShape(8.dp),
@@ -271,10 +300,10 @@ fun ProductItem(name:String, quantity:String, price:String,phone:String, id:Stri
                                 Row {
                                     Icon(
                                         imageVector = Icons.Default.Send,
-                                        contentDescription = "Message Seller")
+                                        contentDescription = "Message Patient")
                                     Spacer(modifier = Modifier.width(3.dp))
                                     Text(
-                                        text = "Message Seller"
+                                        text = "Message Patient"
                                     )
                                 }
                             }

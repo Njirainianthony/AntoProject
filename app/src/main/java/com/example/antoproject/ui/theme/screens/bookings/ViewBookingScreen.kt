@@ -1,4 +1,4 @@
-package com.example.antoproject.ui.theme.screens.doctors
+package com.example.antoproject.ui.theme.screens.bookings
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -63,37 +63,37 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.antoproject.R
-import com.example.antoproject.data.DoctorViewModel
+import com.example.antoproject.data.BookingViewModel
 import com.example.antoproject.data.ProductViewModel
-import com.example.antoproject.models.Doctor
+import com.example.antoproject.models.Booking
 import com.example.antoproject.models.Product
-import com.example.antoproject.navigation.ADD_DOCTORS_URL
+import com.example.antoproject.navigation.ADD_BOOKING_URL
 import com.example.antoproject.navigation.ADD_PRODUCTS_URL
 import com.example.antoproject.ui.theme.Bluey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ViewDoctorScreen(navController: NavController) {
+fun ViewBookingScreen(navController: NavController) {
     Column(modifier = Modifier.fillMaxSize()) {
 
         var context = LocalContext.current
-        var doctorRepository = DoctorViewModel(navController, context)
+        var bookingRepository = BookingViewModel(navController, context)
 
 
-        val emptyDoctorState = remember { mutableStateOf(Doctor("","","","")) }
-        var emptyDoctorListState = remember { mutableStateListOf<Doctor>() }
+        val emptyBookingState = remember { mutableStateOf(Booking("","","","","","")) }
+        var emptyBookingListState = remember { mutableStateListOf<Booking>() }
 
-        var doctors = doctorRepository.allDoctors(emptyDoctorState, emptyDoctorListState)
+        var booking = bookingRepository.allBookings(emptyBookingState, emptyBookingListState)
 
 
         var selected by remember { mutableIntStateOf(0) }
         Scaffold(
             bottomBar = {
                 NavigationBar (
-                    containerColor = Color.Black,
-                    contentColor = Color.White){
-                    com.example.antoproject.ui.theme.screens.doctors.bottomNavItems.forEachIndexed { index, bottomNavItem ->
+                    containerColor = Color.LightGray,
+                    contentColor = Color.Black){
+                    com.example.antoproject.ui.theme.screens.bookings.bottomNavItems.forEachIndexed { index, bottomNavItem ->
                         NavigationBarItem(
                             selected = index == selected,
                             onClick = {
@@ -136,13 +136,14 @@ fun ViewDoctorScreen(navController: NavController) {
                     title = {
                         Row {
 
-                            Image(painter = painterResource(id = R.drawable.doctoricon),
+                            Image(painter = painterResource(id = R.drawable.canteenicon),
                                 contentDescription = "home",
                                 modifier = Modifier.size(20.dp),
                                 colorFilter = ColorFilter.tint(Color.White)
                             )
 
-                            Text(text = "Doctors",
+                            Text(
+                                text = "Bookings",
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 textAlign = TextAlign.Center,
@@ -162,9 +163,10 @@ fun ViewDoctorScreen(navController: NavController) {
                 FloatingActionButton(
                     onClick = { /*TODO*/ },
                     containerColor = Color.Black,
-                    contentColor = Color.White) {
+                    contentColor = Color.White
+                ) {
                     IconButton(onClick = {
-                        navController.navigate(ADD_DOCTORS_URL)
+                        navController.navigate(ADD_BOOKING_URL)
                     }) {
                         Icon(imageVector = Icons.Default.Add,
                             contentDescription = "menu")
@@ -179,7 +181,7 @@ fun ViewDoctorScreen(navController: NavController) {
                         .background(Bluey),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "All doctors",
+                    Text(text = "All products",
                         fontSize = 30.sp,
                         fontFamily = FontFamily.Cursive,
                         color = Color.Red)
@@ -187,14 +189,16 @@ fun ViewDoctorScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(50.dp))
 
                     LazyColumn(){
-                        items(doctors){
-                            DoctorItem(
+                        items(booking){
+                            BookingItem(
                                 name = it.name,
+                                problem = it.problem,
+                                date = it.date,
                                 phone = it.phone,
                                 id = it.id,
                                 navController = navController,
-                                doctorRepository = doctorRepository,
-                                doctorImage = it.imageUrl
+                                bookingRepository = bookingRepository,
+                                bookingImage = it.imageUrl
                             )
                         }
                     }
@@ -213,15 +217,14 @@ fun ViewDoctorScreen(navController: NavController) {
 
 
 @Composable
-fun DoctorItem(name:String, phone:String, id:String,
+fun BookingItem(name:String, problem:String, date:String, phone:String, id:String,
                 navController: NavController,
-                doctorRepository: DoctorViewModel, doctorImage:String) {
+                bookingRepository: BookingViewModel, bookingImage:String) {
 
     //1 item
     Column(modifier = Modifier
         .fillMaxWidth(),
         verticalArrangement = Arrangement.Center
-
     ) {
         Card (modifier = Modifier
             .height(250.dp)
@@ -230,7 +233,7 @@ fun DoctorItem(name:String, phone:String, id:String,
             Box (modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center) {
                 Image(
-                    painter = rememberAsyncImagePainter(doctorImage),
+                    painter = rememberAsyncImagePainter(bookingImage),
                     contentDescription = "null",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -259,8 +262,21 @@ fun DoctorItem(name:String, phone:String, id:String,
                         )
 
 
+                        Text(text = "Problem : $problem",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = FontFamily.Default,
+                            color = Color.White
+                        )
+
                         Spacer(modifier = Modifier.height(5.dp))
 
+                        Text(text = "Date : $date",
+                            fontSize = 19.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            color = Color.White
+                        )
 
                         val mContext = LocalContext.current
 
@@ -275,7 +291,7 @@ fun DoctorItem(name:String, phone:String, id:String,
                                 onClick = {
                                     val smsIntent= Intent(Intent.ACTION_SENDTO)
                                     smsIntent.data="smsto:$phone".toUri()
-                                    smsIntent.putExtra("sms_body","Hello Patient, How can we Help you today?")
+                                    smsIntent.putExtra("sms_body","Hello Patient, how can we help you?")
                                     mContext.startActivity(smsIntent)
                                 },
                                 shape = RoundedCornerShape(8.dp),
@@ -284,28 +300,25 @@ fun DoctorItem(name:String, phone:String, id:String,
                                 Row {
                                     Icon(
                                         imageVector = Icons.Default.Send,
-                                        contentDescription = "Message Seller"
-                                        )
+                                        contentDescription = "Message Patient")
                                     Spacer(modifier = Modifier.width(3.dp))
                                     Text(
-                                        text = "Message Doctor",
-                                        color = Color.White,
-                                        fontFamily = FontFamily.Serif
+                                        text = "Message Patient"
                                     )
                                 }
                             }
                             Row (
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Start
+                                horizontalArrangement = Arrangement.End
                             ){
 
-                                IconButton(onClick = { doctorRepository.updateDoctor(id) }) {
+                                IconButton(onClick = { bookingRepository.updateBooking(id) }) {
                                     Icon(imageVector = Icons.Default.Edit, contentDescription = "", tint = Color.White)
                                 }
 
                                 Spacer(modifier = Modifier.width(5.dp))
 
-                                IconButton(onClick = { doctorRepository.deleteDoctor(id) }) {
+                                IconButton(onClick = { bookingRepository.deleteBooking(id) }) {
                                     Icon(imageVector = Icons.Default.Delete, contentDescription = "", tint = Color.White)
                                 }
 
@@ -332,8 +345,8 @@ fun DoctorItem(name:String, phone:String, id:String,
 
 @Composable
 @Preview(showBackground = true)
-fun ViewDoctorScreenPreview(){
+fun ViewBookingScreenPreview(){
 
-    ViewDoctorScreen(navController = rememberNavController())
+    ViewBookingScreen(navController = rememberNavController())
 
 }

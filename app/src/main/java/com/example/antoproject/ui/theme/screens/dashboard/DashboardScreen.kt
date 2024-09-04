@@ -38,10 +38,13 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.antoproject.R
+import com.example.antoproject.navigation.ADD_BOOKING_URL
 import com.example.antoproject.navigation.ROUT_ABOUT
 import com.example.antoproject.navigation.ROUT_ADMIN
 import com.example.antoproject.navigation.ROUT_GALLERY
 import com.example.antoproject.navigation.ROUT_HOME
+import com.example.antoproject.navigation.VIEW_DOCTORS_URL
+import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
 import com.example.antoproject.ui.theme.Bluey
 
 @Composable
@@ -195,7 +198,7 @@ fun DashboardScreen(navController: NavController){
                     Card (modifier = Modifier
                         .width(170.dp)
                         .height(180.dp)
-                        .clickable { navController.navigate(ROUT_GALLERY) },
+                        .clickable { navController.navigate(ADD_BOOKING_URL) },
                         elevation = CardDefaults.cardElevation(30.dp)
                     ){
 
@@ -207,7 +210,7 @@ fun DashboardScreen(navController: NavController){
                             Box (modifier = Modifier.fillMaxWidth(),
                                 contentAlignment = Alignment.Center
                             ){
-                                Image(painter = painterResource(id = R.drawable.galleryicon),
+                                Image(painter = painterResource(id = R.drawable.bookingicon),
                                     contentDescription = "home",
                                     modifier = Modifier.size(70.dp)
                                 )
@@ -217,7 +220,7 @@ fun DashboardScreen(navController: NavController){
                             Spacer(modifier = Modifier.height(15.dp))
 
                             Text(
-                                text = "Gallery Section",
+                                text = "Book Appointment",
                                 fontSize = 18.sp,
                                 modifier = Modifier.fillMaxWidth(),
                                 textAlign = TextAlign.Center,
@@ -236,7 +239,7 @@ fun DashboardScreen(navController: NavController){
                     Card (modifier = Modifier
                         .width(170.dp)
                         .height(180.dp)
-                        .clickable { navController.navigate(ROUT_HOME) },
+                        .clickable { navController.navigate(VIEW_PRODUCTS_URL) },
                         elevation = CardDefaults.cardElevation(30.dp)
                     ){
 
@@ -248,7 +251,7 @@ fun DashboardScreen(navController: NavController){
                             Box (modifier = Modifier.fillMaxWidth(),
                                 contentAlignment = Alignment.Center
                             ){
-                                Image(painter = painterResource(id = R.drawable.noticeicon),
+                                Image(painter = painterResource(id = R.drawable.pharmacyicon),
                                     contentDescription = "home",
                                     modifier = Modifier.size(70.dp)
                                 )
@@ -258,7 +261,7 @@ fun DashboardScreen(navController: NavController){
                             Spacer(modifier = Modifier.height(15.dp))
 
                             Text(
-                                text = "Notice",
+                                text = "Pharmacy",
                                 fontSize = 18.sp,
                                 modifier = Modifier.fillMaxWidth(),
                                 textAlign = TextAlign.Center,
@@ -279,11 +282,12 @@ fun DashboardScreen(navController: NavController){
 
                 //ROW 3
 
-                Row (modifier = Modifier.padding(20.dp)){
+                Row (modifier = Modifier.fillMaxWidth()){
                     //CARD 1
                     Card (modifier = Modifier
-                        .width(170.dp)
-                        .height(180.dp)
+                        .fillMaxWidth()
+                        .height(230.dp)
+                        .padding(20.dp)
                         .clickable { navController.navigate(ROUT_ADMIN) },
                         elevation = CardDefaults.cardElevation(30.dp)
                     ){
@@ -313,55 +317,16 @@ fun DashboardScreen(navController: NavController){
                                 fontWeight = FontWeight.Bold
                             )
 
+                            Spacer(modifier = Modifier.height(10.dp))
+
                         }
 
 
                     }
                     //END OF CARD 1
 
-                    Spacer(modifier = Modifier.width(30.dp))
-
-                    //CARD 2
-                    Card (modifier = Modifier
-                        .width(170.dp)
-                        .height(180.dp)
-                        .clickable { navController.navigate(ROUT_HOME) },
-                        elevation = CardDefaults.cardElevation(30.dp)
-                    ){
-
-                        Column() {
-
-                            Spacer(modifier = Modifier.height(20.dp))
-
-
-                            Box (modifier = Modifier.fillMaxWidth(),
-                                contentAlignment = Alignment.Center
-                            ){
-                                Image(painter = painterResource(id = R.drawable.doctoricon),
-                                    contentDescription = "home",
-                                    modifier = Modifier.size(70.dp)
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.height(15.dp))
-
-                            Text(
-                                text = "Doctor Section",
-                                fontSize = 18.sp,
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Bold
-                            )
-
-                        }
-
-
-                    }
-                    //END OF CARD 2
-
-
                 }
+
                 //END OF ROW 3
 
 

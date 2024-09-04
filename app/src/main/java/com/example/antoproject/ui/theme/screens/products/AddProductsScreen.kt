@@ -259,7 +259,7 @@ val bottomNavItems = listOf(
 
     BottomNavItem(
         title = "Upload",
-        route="add_products",
+        route="addproducts",
         selectedIcon= Icons.Filled.Add,
         unselectedIcon= Icons.Outlined.Add,
         hasNews = true,
@@ -268,7 +268,7 @@ val bottomNavItems = listOf(
 
     BottomNavItem(
         title = "View",
-        route="view_products",
+        route="viewproducts",
         selectedIcon= Icons.Filled.Info,
         unselectedIcon= Icons.Outlined.Info,
         hasNews = true,

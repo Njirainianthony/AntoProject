@@ -300,10 +300,10 @@ fun ProductItem(name:String, quantity:String, price:String,phone:String, id:Stri
                                 Row {
                                     Icon(
                                         imageVector = Icons.Default.Send,
-                                        contentDescription = "Message Patient")
+                                        contentDescription = "Message Pharmacy")
                                     Spacer(modifier = Modifier.width(3.dp))
                                     Text(
-                                        text = "Message Patient"
+                                        text = "Message Pharmacy"
                                     )
                                 }
                             }

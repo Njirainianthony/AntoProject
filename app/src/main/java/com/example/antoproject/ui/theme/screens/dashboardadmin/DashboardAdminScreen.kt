@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -29,7 +32,16 @@ import com.example.antoproject.R
 import com.example.antoproject.navigation.ADD_DOCTORS_URL
 import com.example.antoproject.navigation.ADD_NURSES_URL
 import com.example.antoproject.navigation.ADD_PRODUCTS_URL
+import com.example.antoproject.navigation.ADD_WARDS_URL
+import com.example.antoproject.navigation.ROUT_ABOUT
+import com.example.antoproject.navigation.ROUT_ADMIN
+import com.example.antoproject.navigation.ROUT_GALLERY
 import com.example.antoproject.navigation.ROUT_HOME
+import com.example.antoproject.navigation.VIEW_BOOKING_URL
+import com.example.antoproject.navigation.VIEW_DOCTORS_URL
+import com.example.antoproject.navigation.VIEW_NURSES_URL
+import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
+import com.example.antoproject.navigation.VIEW_WARDS_URL
 import com.example.antoproject.ui.theme.Bluey
 
 @Composable
@@ -37,21 +49,24 @@ import com.example.antoproject.ui.theme.Bluey
 fun DashboardAdminScreen(navController: NavController){
 
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        ) {
 
         Card(colors = CardDefaults.cardColors(Bluey),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 40.dp)
+                .padding(top = 20.dp, bottom = 20.dp)
+                .verticalScroll(rememberScrollState())
         ) {
+
             //ROW 1
 
-            Row (modifier = Modifier.fillMaxWidth()){
+            Row (modifier = Modifier.padding(20.dp)){
                 //CARD 1
                 Card (modifier = Modifier
-                    .fillMaxWidth()
-                    .height(230.dp)
-                    .padding(20.dp)
+                    .width(163.dp)
+                    .height(180.dp)
                     .clickable { navController.navigate(ADD_DOCTORS_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
@@ -81,28 +96,68 @@ fun DashboardAdminScreen(navController: NavController){
                             fontWeight = FontWeight.Bold
                         )
 
-                        Spacer(modifier = Modifier.height(10.dp))
-
                     }
 
 
                 }
                 //END OF CARD 1
 
-            }
+                Spacer(modifier = Modifier.width(30.dp))
 
+                //CARD 2
+                Card (modifier = Modifier
+                    .width(170.dp)
+                    .height(180.dp)
+                    .clickable { navController.navigate(VIEW_DOCTORS_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+
+                            Image(painter = painterResource(id = R.drawable.doctoricon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "View Doctors",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                    }
+
+
+                }
+                //END OF CARD 2
+
+
+            }
             //END OF ROW 1
 
-            Spacer(modifier = Modifier.height(20.dp))
+
 
             //ROW 2
 
-            Row (modifier = Modifier.fillMaxWidth()){
+            Row (modifier = Modifier.padding(20.dp)){
                 //CARD 1
                 Card (modifier = Modifier
-                    .fillMaxWidth()
-                    .height(230.dp)
-                    .padding(20.dp)
+                    .width(163.dp)
+                    .height(180.dp)
                     .clickable { navController.navigate(ADD_NURSES_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
@@ -132,7 +187,94 @@ fun DashboardAdminScreen(navController: NavController){
                             fontWeight = FontWeight.Bold
                         )
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                    }
+
+
+                }
+                //END OF CARD 1
+
+                Spacer(modifier = Modifier.width(30.dp))
+
+                //CARD 2
+                Card (modifier = Modifier
+                    .width(163.dp)
+                    .height(180.dp)
+                    .clickable { navController.navigate(VIEW_NURSES_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Image(painter = painterResource(id = R.drawable.nurseicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "View Nurses",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                    }
+
+
+                }
+                //END OF CARD 2
+
+
+            }
+            //END OF ROW 2
+
+
+
+            //ROW 3
+
+            Row (modifier = Modifier.padding(20.dp)){
+                //CARD 1
+                Card (modifier = Modifier
+                    .width(163.dp)
+                    .height(180.dp)
+                    .clickable { navController.navigate(ADD_WARDS_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Image(painter = painterResource(id = R.drawable.wardicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "Add Wards",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
 
                     }
 
@@ -140,20 +282,58 @@ fun DashboardAdminScreen(navController: NavController){
                 }
                 //END OF CARD 1
 
+                Spacer(modifier = Modifier.width(30.dp))
+
+                //CARD 2
+                Card (modifier = Modifier
+                    .width(170.dp)
+                    .height(180.dp)
+                    .clickable { navController.navigate(VIEW_WARDS_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Image(painter = painterResource(id = R.drawable.wardicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "View Wards",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                    }
+
+
+                }
+                //END OF CARD 2
+
+
             }
+            //END OF ROW 3
 
-            //END OF ROW 2
+            //ROW 4
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            //ROW 3
-
-            Row (modifier = Modifier.fillMaxWidth()){
+            Row (modifier = Modifier.padding(20.dp)){
                 //CARD 1
                 Card (modifier = Modifier
-                    .fillMaxWidth()
-                    .height(230.dp)
-                    .padding(20.dp)
+                    .width(163.dp)
+                    .height(180.dp)
                     .clickable { navController.navigate(ADD_PRODUCTS_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
@@ -166,7 +346,7 @@ fun DashboardAdminScreen(navController: NavController){
                         Box (modifier = Modifier.fillMaxWidth(),
                             contentAlignment = Alignment.Center
                         ){
-                            Image(painter = painterResource(id = R.drawable.canteenicon),
+                            Image(painter = painterResource(id = R.drawable.pharmacyicon),
                                 contentDescription = "home",
                                 modifier = Modifier.size(70.dp)
                             )
@@ -176,7 +356,95 @@ fun DashboardAdminScreen(navController: NavController){
                         Spacer(modifier = Modifier.height(15.dp))
 
                         Text(
-                            text = "Add Products in Canteen",
+                            text = "Add Products",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                    }
+
+
+                }
+                //END OF CARD 1
+
+                Spacer(modifier = Modifier.width(30.dp))
+
+                //CARD 2
+                Card (modifier = Modifier
+                    .width(170.dp)
+                    .height(180.dp)
+                    .clickable { navController.navigate(VIEW_PRODUCTS_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Image(painter = painterResource(id = R.drawable.pharmacyicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "View Products",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                    }
+
+
+                }
+                //END OF CARD 2
+
+
+            }
+            //END OF ROW 4
+
+            //ROW 5
+
+            Row (modifier = Modifier.fillMaxWidth()){
+                //CARD 1
+                Card (modifier = Modifier
+                    .fillMaxWidth()
+                    .height(230.dp)
+                    .padding(20.dp)
+                    .clickable { navController.navigate(VIEW_BOOKING_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Image(painter = painterResource(id = R.drawable.bookingicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "View Appointments",
                             fontSize = 18.sp,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center,
@@ -193,9 +461,9 @@ fun DashboardAdminScreen(navController: NavController){
 
             }
 
-            //END OF ROW 3
-
+            //END OF ROW 5
         }
+
 
     }
 

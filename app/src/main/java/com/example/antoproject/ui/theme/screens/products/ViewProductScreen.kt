@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -91,8 +92,8 @@ fun ViewProductsScreen(navController: NavController) {
         Scaffold(
             bottomBar = {
                 NavigationBar (
-                    containerColor = Color.LightGray,
-                    contentColor = Color.Black){
+                    containerColor = Color.Black,
+                    contentColor = Color.White){
                     bottomNavItems.forEachIndexed { index, bottomNavItem ->
                         NavigationBarItem(
                             selected = index == selected,
@@ -227,7 +228,8 @@ fun ProductItem(name:String, quantity:String, price:String,phone:String, id:Stri
         verticalArrangement = Arrangement.Center
     ) {
         Card (modifier = Modifier
-            .height(250.dp)
+            .height(300.dp)
+            .padding(bottom = 20.dp, top = 20.dp)
             .fillMaxWidth()
         ) {
             Box (modifier = Modifier.fillMaxSize(),
@@ -300,10 +302,13 @@ fun ProductItem(name:String, quantity:String, price:String,phone:String, id:Stri
                                 Row {
                                     Icon(
                                         imageVector = Icons.Default.Send,
-                                        contentDescription = "Message Pharmacy")
+
+                                        contentDescription = "Message Pharmacy",
+                                        tint = Color.White)
                                     Spacer(modifier = Modifier.width(3.dp))
                                     Text(
-                                        text = "Message Pharmacy"
+                                        text = "Message Pharmacy",
+                                        color = Color.White
                                     )
                                 }
                             }

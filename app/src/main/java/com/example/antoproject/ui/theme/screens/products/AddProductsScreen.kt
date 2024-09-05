@@ -157,10 +157,10 @@ fun AddProductsScreen(navController: NavController){
                     ){
 
                         Image(
-                            painter = painterResource(id = R.drawable.canteen1),
+                            painter = painterResource(id = R.drawable.pharmacyicon),
                             contentDescription ="home",
                             modifier = Modifier
-                                .size(150.dp),
+                                .size(150.dp).padding(20.dp),
                             contentScale = ContentScale.Crop,
 
 

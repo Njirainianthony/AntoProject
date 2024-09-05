@@ -1,4 +1,4 @@
-package com.example.antoproject.ui.theme.screens.bookings
+package com.example.antoproject.ui.theme.screens.products
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -63,28 +63,25 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.antoproject.R
-import com.example.antoproject.data.BookingViewModel
 import com.example.antoproject.data.ProductViewModel
-import com.example.antoproject.models.Booking
 import com.example.antoproject.models.Product
-import com.example.antoproject.navigation.ADD_BOOKING_URL
 import com.example.antoproject.navigation.ADD_PRODUCTS_URL
 import com.example.antoproject.ui.theme.Bluey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ViewBookingScreen(navController: NavController) {
+fun ViewProducts2Screen(navController: NavController) {
     Column(modifier = Modifier.fillMaxSize()) {
 
         var context = LocalContext.current
-        var bookingRepository = BookingViewModel(navController, context)
+        var productRepository = ProductViewModel(navController, context)
 
 
-        val emptyBookingState = remember { mutableStateOf(Booking("","","","","","")) }
-        var emptyBookingListState = remember { mutableStateListOf<Booking>() }
+        val emptyProductState = remember { mutableStateOf(Product("","","","","","")) }
+        var emptyProductsListState = remember { mutableStateListOf<Product>() }
 
-        var booking = bookingRepository.allBookings(emptyBookingState, emptyBookingListState)
+        var products = productRepository.allProducts(emptyProductState, emptyProductsListState)
 
 
         var selected by remember { mutableIntStateOf(0) }
@@ -93,7 +90,7 @@ fun ViewBookingScreen(navController: NavController) {
                 NavigationBar (
                     containerColor = Color.Black,
                     contentColor = Color.White){
-                    com.example.antoproject.ui.theme.screens.bookings.bottomNavItems.forEachIndexed { index, bottomNavItem ->
+                    bottomNavItems.forEachIndexed { index, bottomNavItem ->
                         NavigationBarItem(
                             selected = index == selected,
                             onClick = {
@@ -143,7 +140,7 @@ fun ViewBookingScreen(navController: NavController) {
                             )
 
                             Text(
-                                text = "Bookings",
+                                text = "Products Available",
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 textAlign = TextAlign.Center,
@@ -166,7 +163,7 @@ fun ViewBookingScreen(navController: NavController) {
                     contentColor = Color.White
                 ) {
                     IconButton(onClick = {
-                        navController.navigate(ADD_BOOKING_URL)
+                        navController.navigate(ADD_PRODUCTS_URL)
                     }) {
                         Icon(imageVector = Icons.Default.Add,
                             contentDescription = "menu")
@@ -189,16 +186,16 @@ fun ViewBookingScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(50.dp))
 
                     LazyColumn(){
-                        items(booking){
-                            BookingItem(
+                        items(products){
+                            ProductItem(
                                 name = it.name,
-                                problem = it.problem,
-                                selectedDate = it.date,
+                                quantity = it.quantity,
+                                price = it.price,
                                 phone = it.phone,
                                 id = it.id,
                                 navController = navController,
-                                bookingRepository = bookingRepository,
-                                bookingImage = it.imageUrl
+                                productRepository = productRepository,
+                                productImage = it.imageUrl
                             )
                         }
                     }
@@ -217,9 +214,9 @@ fun ViewBookingScreen(navController: NavController) {
 
 
 @Composable
-fun BookingItem(name:String, problem:String, selectedDate:String, phone:String, id:String,
+fun ProductItem(name:String, quantity:String, price:String, phone:String, id:String,
                 navController: NavController,
-                bookingRepository: BookingViewModel, bookingImage:String) {
+                productRepository: ProductViewModel, productImage:String) {
 
     //1 item
     Column(modifier = Modifier
@@ -227,13 +224,14 @@ fun BookingItem(name:String, problem:String, selectedDate:String, phone:String, 
         verticalArrangement = Arrangement.Center
     ) {
         Card (modifier = Modifier
-            .height(250.dp)
+            .height(300.dp)
+            .padding(bottom = 20.dp, top = 20.dp)
             .fillMaxWidth()
         ) {
             Box (modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center) {
                 Image(
-                    painter = rememberAsyncImagePainter(bookingImage),
+                    painter = rememberAsyncImagePainter(productImage),
                     contentDescription = "null",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -256,32 +254,25 @@ fun BookingItem(name:String, problem:String, selectedDate:String, phone:String, 
 
                         Text(text = "Name : $name",
                             fontSize = 20.sp,
-                            fontWeight = FontWeight.Medium,
+                            fontWeight = FontWeight.ExtraBold,
                             fontFamily = FontFamily.Serif,
                             color = Color.White
                         )
 
 
-                        Text(text = "Problem : $problem",
+                        Text(text = "Quantity : $quantity",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Medium,
-                            fontFamily = FontFamily.Serif,
+                            fontFamily = FontFamily.Default,
                             color = Color.White
                         )
 
                         Spacer(modifier = Modifier.height(5.dp))
 
-                        Text(text = "Date : $selectedDate",
+                        Text(text = "Price : Ksh.$price",
                             fontSize = 19.sp,
-                            fontWeight = FontWeight.Medium,
-                            fontFamily = FontFamily.Serif,
-                            color = Color.White
-                        )
-
-                        Text(text = "Phone : $phone",
-                            fontSize = 19.sp,
-                            fontWeight = FontWeight.Medium,
-                            fontFamily = FontFamily.Serif,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
                             color = Color.White
                         )
 
@@ -307,30 +298,17 @@ fun BookingItem(name:String, problem:String, selectedDate:String, phone:String, 
                                 Row {
                                     Icon(
                                         imageVector = Icons.Default.Send,
-                                        contentDescription = "Message Patient")
+
+                                        contentDescription = "Message Pharmacy",
+                                        tint = Color.White)
                                     Spacer(modifier = Modifier.width(3.dp))
                                     Text(
-                                        text = "Message Patient"
+                                        text = "Message Pharmacy",
+                                        color = Color.White
                                     )
                                 }
                             }
-                            Row (
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.End
-                            ){
 
-                                IconButton(onClick = { bookingRepository.updateBooking(id) }) {
-                                    Icon(imageVector = Icons.Default.Edit, contentDescription = "", tint = Color.White)
-                                }
-
-                                Spacer(modifier = Modifier.width(5.dp))
-
-                                IconButton(onClick = { bookingRepository.deleteBooking(id) }) {
-                                    Icon(imageVector = Icons.Default.Delete, contentDescription = "", tint = Color.White)
-                                }
-
-
-                            }
 
                         }
                         //end of button row
@@ -352,8 +330,8 @@ fun BookingItem(name:String, problem:String, selectedDate:String, phone:String, 
 
 @Composable
 @Preview(showBackground = true)
-fun ViewBookingScreenPreview(){
+fun ViewProducts2ScreenPreview(){
 
-    ViewBookingScreen(navController = rememberNavController())
+    ViewProducts2Screen(navController = rememberNavController())
 
 }

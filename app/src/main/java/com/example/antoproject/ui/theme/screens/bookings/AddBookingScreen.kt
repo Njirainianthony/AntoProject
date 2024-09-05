@@ -239,7 +239,7 @@ fun AddBookingScreen(navController: NavController){
                                 colors = ButtonDefaults.buttonColors(Color.Gray),
                                 modifier = Modifier
                                     .height(65.dp)
-                                    .padding(top = 10.dp, end = 10.dp)) {
+                                    .padding(top = 15.dp, end = 10.dp)) {
                                 Text(text = "Select Date")
                             }
                             Spacer(modifier = Modifier.width(10.dp))
@@ -251,7 +251,7 @@ fun AddBookingScreen(navController: NavController){
                                 readOnly = true,  // Makes the text field non-editable
                                 modifier = Modifier
                                     .padding(bottom = 16.dp, top = 10.dp)
-                                    .width(250.dp).height(45.dp),
+                                    .width(250.dp).height(55.dp),
                                 trailingIcon = {
                                     Text(text = "📅")  // Icon to indicate date picker
                                 },
@@ -280,7 +280,7 @@ fun AddBookingScreen(navController: NavController){
                         //---------------------IMAGE PICKER START-----------------------------------//
 
                         var modifier = Modifier
-                        ImagePicker(modifier,context, navController, bookingName.trim(), bookingProblem.trim(), bookingDate.trim(),phone.trim())
+                        ImagePicker(modifier,context, navController, bookingName.trim(), bookingProblem.trim(), phone.trim(), selectedDate.toString().trim())
 
                         //---------------------IMAGE PICKER END-----------------------------------//
 

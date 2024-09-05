@@ -44,6 +44,7 @@ import com.example.antoproject.navigation.ROUT_ADMIN
 import com.example.antoproject.navigation.ROUT_GALLERY
 import com.example.antoproject.navigation.ROUT_HOME
 import com.example.antoproject.navigation.VIEW_DOCTORS_URL
+import com.example.antoproject.navigation.VIEW_PRODUCTS2_URL
 import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
 import com.example.antoproject.ui.theme.Bluey
 
@@ -239,7 +240,7 @@ fun DashboardScreen(navController: NavController){
                     Card (modifier = Modifier
                         .width(170.dp)
                         .height(180.dp)
-                        .clickable { navController.navigate(VIEW_PRODUCTS_URL) },
+                        .clickable { navController.navigate(VIEW_PRODUCTS2_URL) },
                         elevation = CardDefaults.cardElevation(30.dp)
                     ){
 

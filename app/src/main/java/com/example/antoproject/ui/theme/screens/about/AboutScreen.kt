@@ -47,6 +47,7 @@ fun AboutScreen(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(top = 30.dp, bottom = 45.dp)
             .background(Bluey)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -199,7 +200,7 @@ fun AboutScreen(navController: NavController){
                 
             }
 
-            Spacer(modifier = Modifier.width(5.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
             Button(
                 onClick = {
@@ -217,7 +218,7 @@ fun AboutScreen(navController: NavController){
                 Text(text = "Email")
             }
 
-            Spacer(modifier = Modifier.width(5.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
             Button(
                 onClick = {

@@ -12,6 +12,7 @@ const val ROUT_DASHADMIN="dashadmin"
 
 const val ADD_PRODUCTS_URL="addproducts"
 const val VIEW_PRODUCTS_URL="viewproducts"
+const val VIEW_PRODUCTS2_URL="viewproducts2"
 
 const val ADD_DOCTORS_URL="adddoctors"
 const val VIEW_DOCTORS_URL="viewdoctors"

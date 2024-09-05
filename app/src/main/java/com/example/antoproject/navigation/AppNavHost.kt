@@ -8,6 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.antoproject.ui.theme.screens.about.AboutScreen
 import com.example.antoproject.ui.theme.screens.adminlogin.AdminLoginScreen
+import com.example.antoproject.ui.theme.screens.bookings.AddBookingScreen
+import com.example.antoproject.ui.theme.screens.bookings.ViewBookingScreen
 import com.example.antoproject.ui.theme.screens.dashboard.DashboardScreen
 import com.example.antoproject.ui.theme.screens.dashboardadmin.DashboardAdminScreen
 import com.example.antoproject.ui.theme.screens.doctors.AddDoctorsScreen
@@ -19,6 +21,7 @@ import com.example.antoproject.ui.theme.screens.login.LoginScreen
 import com.example.antoproject.ui.theme.screens.nurses.AddNursesScreen
 import com.example.antoproject.ui.theme.screens.nurses.ViewNursesScreen
 import com.example.antoproject.ui.theme.screens.products.AddProductsScreen
+import com.example.antoproject.ui.theme.screens.products.ViewProducts2Screen
 import com.example.antoproject.ui.theme.screens.signup.SignUpScreen
 import com.example.antoproject.ui.theme.screens.splash.SplashScreen
 import com.example.antoproject.ui.theme.screens.wards.AddWardsScreen
@@ -81,6 +84,10 @@ fun AppNavHost(
             ViewProductsScreen(navController = navController)
         }
 
+        composable(VIEW_PRODUCTS2_URL) {
+            ViewProducts2Screen(navController = navController)
+        }
+
         composable(ADD_DOCTORS_URL) {
             AddDoctorsScreen(navController = navController)
         }
@@ -103,6 +110,14 @@ fun AppNavHost(
 
         composable(VIEW_WARDS_URL) {
             ViewWardsScreen(navController = navController)
+        }
+
+        composable(ADD_BOOKING_URL) {
+            AddBookingScreen(navController = navController)
+        }
+
+        composable(VIEW_BOOKING_URL) {
+            ViewBookingScreen(navController = navController)
         }
 
 

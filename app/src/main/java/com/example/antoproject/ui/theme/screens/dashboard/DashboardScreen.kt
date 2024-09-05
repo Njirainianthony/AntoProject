@@ -280,15 +280,13 @@ fun DashboardScreen(navController: NavController){
                 //END OF ROW 2
 
 
-
                 //ROW 3
 
-                Row (modifier = Modifier.fillMaxWidth()){
+                Row (modifier = Modifier.padding(20.dp)){
                     //CARD 1
                     Card (modifier = Modifier
-                        .fillMaxWidth()
-                        .height(230.dp)
-                        .padding(20.dp)
+                        .width(170.dp)
+                        .height(180.dp)
                         .clickable { navController.navigate(ROUT_ADMIN) },
                         elevation = CardDefaults.cardElevation(30.dp)
                     ){
@@ -318,17 +316,58 @@ fun DashboardScreen(navController: NavController){
                                 fontWeight = FontWeight.Bold
                             )
 
-                            Spacer(modifier = Modifier.height(10.dp))
-
                         }
 
 
                     }
                     //END OF CARD 1
 
-                }
+                    Spacer(modifier = Modifier.width(30.dp))
 
+                    //CARD 2
+                    Card (modifier = Modifier
+                        .width(170.dp)
+                        .height(180.dp)
+                        .clickable { navController.navigate(ROUT_GALLERY) },
+                        elevation = CardDefaults.cardElevation(30.dp)
+                    ){
+
+                        Column() {
+
+                            Spacer(modifier = Modifier.height(20.dp))
+
+
+                            Box (modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ){
+                                Image(painter = painterResource(id = R.drawable.galleryicon),
+                                    contentDescription = "home",
+                                    modifier = Modifier.size(70.dp)
+                                )
+
+                            }
+
+                            Spacer(modifier = Modifier.height(15.dp))
+
+                            Text(
+                                text = "Gallery Section",
+                                fontSize = 18.sp,
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold
+                            )
+
+                        }
+
+
+                    }
+                    //END OF CARD 2
+
+
+                }
                 //END OF ROW 3
+
+
 
 
 

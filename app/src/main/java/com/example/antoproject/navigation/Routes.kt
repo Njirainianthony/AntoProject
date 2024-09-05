@@ -16,12 +16,15 @@ const val VIEW_PRODUCTS2_URL="viewproducts2"
 
 const val ADD_DOCTORS_URL="adddoctors"
 const val VIEW_DOCTORS_URL="viewdoctors"
+const val VIEW_DOCTORS2_URL="viewdoctors2"
 
 const val ADD_NURSES_URL="addnurses"
 const val VIEW_NURSES_URL="viewnurses"
+const val VIEW_NURSES2_URL="viewnurses2"
 
 const val ADD_WARDS_URL="addwards"
 const val VIEW_WARDS_URL="viewwards"
+const val VIEW_WARDS2_URL="viewwards2"
 
 const val ADD_BOOKING_URL="addbooking"
 const val VIEW_BOOKING_URL="viewbooking"

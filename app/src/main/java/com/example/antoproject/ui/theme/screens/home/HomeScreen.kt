@@ -95,7 +95,7 @@ fun HomeScreen(navController: NavController){
             shape = RoundedCornerShape(10.dp)
         ) {
 
-            Text(text = "Get Started",
+            Text(text = "Go To Dashboard",
                 color = Color.White,
                 fontWeight = FontWeight.Bold
                 )

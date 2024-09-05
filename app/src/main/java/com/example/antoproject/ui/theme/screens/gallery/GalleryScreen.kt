@@ -30,9 +30,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.antoproject.R
 import com.example.antoproject.navigation.ROUT_HOME
+import com.example.antoproject.navigation.VIEW_DOCTORS2_URL
 import com.example.antoproject.navigation.VIEW_DOCTORS_URL
+import com.example.antoproject.navigation.VIEW_NURSES2_URL
 import com.example.antoproject.navigation.VIEW_NURSES_URL
+import com.example.antoproject.navigation.VIEW_PRODUCTS2_URL
 import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
+import com.example.antoproject.navigation.VIEW_WARDS2_URL
 import com.example.antoproject.navigation.VIEW_WARDS_URL
 import com.example.antoproject.ui.theme.Bluey
 
@@ -56,7 +60,7 @@ fun GalleryScreen(navController: NavController){
                     .fillMaxWidth()
                     .height(230.dp)
                     .padding(20.dp)
-                    .clickable { navController.navigate(VIEW_DOCTORS_URL) },
+                    .clickable { navController.navigate(VIEW_DOCTORS2_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
 
@@ -107,7 +111,7 @@ fun GalleryScreen(navController: NavController){
                     .fillMaxWidth()
                     .height(230.dp)
                     .padding(20.dp)
-                    .clickable { navController.navigate(VIEW_NURSES_URL) },
+                    .clickable { navController.navigate(VIEW_NURSES2_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
 
@@ -150,57 +154,6 @@ fun GalleryScreen(navController: NavController){
 
             Spacer(modifier = Modifier.height(5.dp))
 
-            //ROW 3
-
-            Row (modifier = Modifier.fillMaxWidth()){
-                //CARD 1
-                Card (modifier = Modifier
-                    .fillMaxWidth()
-                    .height(230.dp)
-                    .padding(20.dp)
-                    .clickable { navController.navigate(VIEW_PRODUCTS_URL) },
-                    elevation = CardDefaults.cardElevation(30.dp)
-                ){
-
-                    Column() {
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-
-                        Box (modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ){
-                            Image(painter = painterResource(id = R.drawable.canteenicon),
-                                contentDescription = "home",
-                                modifier = Modifier.size(70.dp)
-                            )
-
-                        }
-
-                        Spacer(modifier = Modifier.height(15.dp))
-
-                        Text(
-                            text = "View Canteen",
-                            fontSize = 18.sp,
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center,
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                    }
-
-
-                }
-                //END OF CARD 1
-
-            }
-
-            //END OF ROW 3
-
-            Spacer(modifier = Modifier.height(5.dp))
-
             //ROW 4
 
             Row (modifier = Modifier.fillMaxWidth()){
@@ -209,7 +162,7 @@ fun GalleryScreen(navController: NavController){
                     .fillMaxWidth()
                     .height(230.dp)
                     .padding(20.dp)
-                    .clickable { navController.navigate(VIEW_WARDS_URL) },
+                    .clickable { navController.navigate(VIEW_WARDS2_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
 

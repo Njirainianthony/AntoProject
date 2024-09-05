@@ -86,46 +86,6 @@ fun ViewProducts2Screen(navController: NavController) {
 
         var selected by remember { mutableIntStateOf(0) }
         Scaffold(
-            bottomBar = {
-                NavigationBar (
-                    containerColor = Color.Black,
-                    contentColor = Color.White){
-                    bottomNavItems.forEachIndexed { index, bottomNavItem ->
-                        NavigationBarItem(
-                            selected = index == selected,
-                            onClick = {
-                                selected = index
-                                navController.navigate(bottomNavItem.route)
-                            },
-                            icon = {
-                                BadgedBox(
-                                    badge = {
-                                        if (bottomNavItem.badges != 0) {
-                                            Badge (containerColor = Color.White){
-                                                Text(text = bottomNavItem.badges.toString())
-                                            }
-                                        } else if (bottomNavItem.hasNews) {
-                                            Badge()
-                                        }
-                                    }
-                                ) {
-                                    Icon(imageVector =
-                                    if (index == selected)
-                                        bottomNavItem.selectedIcon
-                                    else
-                                        bottomNavItem.unselectedIcon,
-                                        contentDescription = bottomNavItem.title)
-                                }
-
-                            },
-                            label = {
-                                Text(text = bottomNavItem.title)
-                            }
-                        )
-                    }
-                }
-            },
-
             topBar = {
                 TopAppBar(
                     modifier = Modifier.padding(bottom = 40.dp),
@@ -156,20 +116,6 @@ fun ViewProducts2Screen(navController: NavController) {
 
             },
 
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { /*TODO*/ },
-                    containerColor = Color.Black,
-                    contentColor = Color.White
-                ) {
-                    IconButton(onClick = {
-                        navController.navigate(ADD_PRODUCTS_URL)
-                    }) {
-                        Icon(imageVector = Icons.Default.Add,
-                            contentDescription = "menu")
-                    }
-                }
-            },
             //Content Section
             content = @Composable {
                 Column(

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -25,6 +26,7 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -189,7 +191,7 @@ fun ViewWardsScreen(navController: NavController) {
                     LazyColumn(){
                         items(wards){
                             WardItem(
-                                name = it.name,
+                                wardName = it.name,
                                 id = it.id,
                                 navController = navController,
                                 wardRepository = wardRepository,
@@ -212,24 +214,23 @@ fun ViewWardsScreen(navController: NavController) {
 
 
 @Composable
-fun WardItem(name:String, id:String,
-              navController: NavController,
-              wardRepository: WardViewModel, wardImage:String) {
+fun WardItem(wardName:String, id:String,
+                navController:NavController,
+                wardRepository:WardViewModel, wardImage:String) {
 
     //1 item
-    Column(modifier = Modifier
-        .fillMaxWidth(),
-        verticalArrangement = Arrangement.Center
 
-    ) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(15.dp)) {
         Card (modifier = Modifier
-            .height(250.dp)
+            .height(300.dp)
             .fillMaxWidth()
-            .padding(20.dp)
         ) {
-            Box (modifier = Modifier
-                .fillMaxSize(),
-                contentAlignment = Alignment.Center) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
                 Image(
                     painter = rememberAsyncImagePainter(wardImage),
                     contentDescription = "null",
@@ -237,82 +238,67 @@ fun WardItem(name:String, id:String,
                     contentScale = ContentScale.Crop
                 )
 
-
-                Row (modifier = Modifier.align(Alignment.BottomStart)) {
-                    Column (modifier = Modifier
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    Color.Transparent,
-                                    Color.Black
-                                )
-                            )
-                        )
-                        .fillMaxWidth()
-                    ) {
-                        //details
-
-                        Text(text = "Name : $name",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            fontFamily = FontFamily.Serif,
-                            color = Color.White
-                        )
-
-
-                        Spacer(modifier = Modifier.height(5.dp))
-
-
-                        val mContext = LocalContext.current
-
-                        //button row
-                        Row (
-                            modifier = Modifier
-                                .padding(bottom = 10.dp)
-                                .fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ){
-                            Row (
-                                modifier = Modifier.fillMaxWidth(),
-                            ){
-
-                                Button(onClick = { wardRepository.updateWard(id) },
-                                    colors = ButtonDefaults.buttonColors(Color.Black)) {
-                                    Text(text = "Update",
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.White,
-                                        fontFamily = FontFamily.Serif)
-                                }
-
-
-                                Spacer(modifier = Modifier.width(5.dp))
-
-                                Button(onClick = { wardRepository.deleteWards(id) }) {
-
-                                    Text(text = "Delete",
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.White,
-                                        fontFamily = FontFamily.Serif)
-
-                                }
-
-
-                            }
-
-                        }
-                        //end of button row
-
-
-                        //end details
-
-                    }
-                }
-
             }
         }
+        Text(text ="Ward Name : $wardName",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.ExtraBold,
+            fontFamily = FontFamily.Default,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+
+        Row {
+
+            Button(onClick = { wardRepository.updateWard(id)},
+                shape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp),
+                colors = ButtonDefaults.buttonColors(Color.Green),) {
+                Row {
+                    Icon(imageVector = Icons.Default.Edit, contentDescription = "", tint = Color.White)
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(text = "Update")
+
+                }
+            }
+
+
+            Spacer(modifier = Modifier.width(5.dp))
+
+            Button(onClick = { wardRepository.deleteWards(id)},
+                shape = RoundedCornerShape(topEnd = 10.dp, bottomEnd = 10.dp),
+                colors = ButtonDefaults.buttonColors(Color.Red),) {
+                Row {
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = "", tint = Color.White)
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    Text(text = "Delete")
+
+                }
+            }
+
+
+        }
+        Spacer(modifier = Modifier.height(5.dp))
+
+
+        Divider()
+
+
+
+
+
+
+
+
         //end 1 item
 
     }
+
+
+
+
+
 }
 
 
@@ -324,3 +310,4 @@ fun ViewWardsScreenPreview(){
     ViewWardsScreen(navController = rememberNavController())
 
 }
+

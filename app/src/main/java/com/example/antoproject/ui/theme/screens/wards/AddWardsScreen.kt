@@ -181,20 +181,25 @@ fun AddWardsScreen(navController: NavController){
                         var wardName by remember { mutableStateOf("") }
                         val context = LocalContext.current
 
+
+
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedTextField(
                             value = wardName,
                             onValueChange = { wardName = it },
-                            label = { Text(text = "Ward name ", color = Color.Black, fontFamily = FontFamily.Serif) },
+                            label = { Text(
+                                text = "Enter Name",
+                                fontFamily = FontFamily.Serif
+                            ) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                         )
 
                         Spacer(modifier = Modifier.height(10.dp))
 
 
-
                         Spacer(modifier = Modifier.height(20.dp))
+
 
 
 
@@ -268,7 +273,7 @@ data class BottomNavItem(
 
 
 @Composable
-fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: NavController, name:String) {
+fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: NavController, wardName:String) {
     var hasImage by remember { mutableStateOf(false) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -305,7 +310,7 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: 
                 colors = ButtonDefaults.buttonColors(Color.Black)
             ) {
                 Text(
-                    text = "Select Image"
+                    text = "Upload Photo"
                 )
             }
 
@@ -314,13 +319,13 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: 
             Button(onClick = {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
                 var wardRepository = WardViewModel(navController,context)
-                wardRepository.uploadWard(name,imageUri!!)
+                wardRepository.uploadWard(wardName,imageUri!!)
 
 
             },
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(Color.Black)) {
-                Text(text = "Upload")
+                Text(text = "Add Ward")
             }
         }
     }

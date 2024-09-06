@@ -169,7 +169,8 @@ fun DoctorItem2(name:String, phone:String, id:String,
 
     ) {
         Card (modifier = Modifier
-            .height(250.dp)
+            .height(300.dp)
+            .padding(top = 20.dp, bottom = 20.dp)
             .fillMaxWidth()
         ) {
             Box (modifier = Modifier.fillMaxSize(),

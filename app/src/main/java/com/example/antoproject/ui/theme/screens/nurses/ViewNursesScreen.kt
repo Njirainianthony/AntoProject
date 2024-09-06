@@ -232,7 +232,7 @@ fun NurseItem(name:String, id:String,
         Card (modifier = Modifier
             .height(250.dp)
             .fillMaxWidth()
-            .padding(20.dp)
+            .padding(top = 20.dp, bottom = 20.dp)
         ) {
             Box (modifier = Modifier
                 .fillMaxSize(),

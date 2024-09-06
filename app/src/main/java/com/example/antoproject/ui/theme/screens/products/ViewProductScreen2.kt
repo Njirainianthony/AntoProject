@@ -100,7 +100,7 @@ fun ViewProducts2Screen(navController: NavController) {
                             )
 
                             Text(
-                                text = "Products Available",
+                                text = "Pharmacy products",
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 textAlign = TextAlign.Center,
@@ -124,7 +124,7 @@ fun ViewProducts2Screen(navController: NavController) {
                         .background(Bluey),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "All products",
+                    Text(text = "Pharmacy products",
                         fontSize = 30.sp,
                         fontFamily = FontFamily.Cursive,
                         color = Color.Red)

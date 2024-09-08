@@ -17,7 +17,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -227,7 +229,8 @@ fun BookingItem(name:String, problem:String, selectedDate:String, phone:String, 
         verticalArrangement = Arrangement.Center
     ) {
         Card (modifier = Modifier
-            .height(250.dp)
+            .height(300.dp)
+            .padding(bottom = 20.dp, top = 20.dp)
             .fillMaxWidth()
         ) {
             Box (modifier = Modifier.fillMaxSize(),
@@ -256,7 +259,7 @@ fun BookingItem(name:String, problem:String, selectedDate:String, phone:String, 
 
                         Text(text = "Name : $name",
                             fontSize = 20.sp,
-                            fontWeight = FontWeight.Medium,
+                            fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Serif,
                             color = Color.White
                         )
@@ -273,7 +276,7 @@ fun BookingItem(name:String, problem:String, selectedDate:String, phone:String, 
 
                         Text(text = "Date : $selectedDate",
                             fontSize = 19.sp,
-                            fontWeight = FontWeight.Medium,
+                            fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Serif,
                             color = Color.White
                         )

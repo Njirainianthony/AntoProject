@@ -17,7 +17,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -93,7 +95,7 @@ fun ViewProducts2Screen(navController: NavController) {
                     title = {
                         Row {
 
-                            Image(painter = painterResource(id = R.drawable.canteenicon),
+                            Image(painter = painterResource(id = R.drawable.pharmacyicon),
                                 contentDescription = "home",
                                 modifier = Modifier.size(20.dp),
                                 colorFilter = ColorFilter.tint(Color.White)

@@ -1,6 +1,7 @@
-package com.example.antoproject.ui.theme.screens.wards
+package com.example.antoproject.ui.theme.screens.hospitals
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,19 +17,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -54,36 +51,35 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.antoproject.R
-import com.example.antoproject.data.WardViewModel
-import com.example.antoproject.models.Ward
-import com.example.antoproject.navigation.ADD_WARDS_URL
+import com.example.antoproject.data.HospitalViewModel
+import com.example.antoproject.data.ProductViewModel
+import com.example.antoproject.models.Hospital
+import com.example.antoproject.models.Product
 import com.example.antoproject.ui.theme.Bluey
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ViewWardsScreen2(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Bluey)) {
+fun ViewHospital2Screen(navController: NavController) {
+    Column(modifier = Modifier.fillMaxSize()) {
 
         var context = LocalContext.current
-        var wardRepository = WardViewModel(navController, context)
+        var hospitalRepository = HospitalViewModel(navController, context)
 
 
-        val emptyWardState = remember { mutableStateOf(Ward("","","")) }
-        var emptyWardListState = remember { mutableStateListOf<Ward>() }
+        val emptyHospitalState = remember { mutableStateOf(Hospital("","","")) }
+        var emptyHospitalListState = remember { mutableStateListOf<Hospital>() }
 
-        var wards = wardRepository.allWards(emptyWardState, emptyWardListState)
+        var hospitals = hospitalRepository.allHospitals(emptyHospitalState, emptyHospitalListState)
 
 
         var selected by remember { mutableIntStateOf(0) }
         Scaffold(
-
             topBar = {
                 TopAppBar(
                     modifier = Modifier.padding(bottom = 40.dp),
@@ -97,7 +93,8 @@ fun ViewWardsScreen2(navController: NavController) {
                                 colorFilter = ColorFilter.tint(Color.White)
                             )
 
-                            Text(text = "Wards",
+                            Text(
+                                text = "Hospital Sections",
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 textAlign = TextAlign.Center,
@@ -108,7 +105,6 @@ fun ViewWardsScreen2(navController: NavController) {
                             )
 
                         }
-
                     }
                 )
 
@@ -122,7 +118,7 @@ fun ViewWardsScreen2(navController: NavController) {
                         .background(Bluey),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "All Wards",
+                    Text(text = "All Sections",
                         fontSize = 30.sp,
                         fontFamily = FontFamily.Cursive,
                         color = Color.Red)
@@ -130,13 +126,13 @@ fun ViewWardsScreen2(navController: NavController) {
                     Spacer(modifier = Modifier.height(50.dp))
 
                     LazyColumn(){
-                        items(wards){
-                            WardItem2(
+                        items(hospitals){
+                            HospitalItem2(
                                 name = it.name,
                                 id = it.id,
                                 navController = navController,
-                                wardRepository = wardRepository,
-                                wardImage = it.imageUrl
+                                hospitalRepository = hospitalRepository,
+                                hospitalImage = it.imageUrl
                             )
                         }
                     }
@@ -155,26 +151,24 @@ fun ViewWardsScreen2(navController: NavController) {
 
 
 @Composable
-fun WardItem2(name:String, id:String,
-             navController: NavController,
-             wardRepository: WardViewModel, wardImage:String) {
+fun HospitalItem2(name:String, id:String,
+                navController: NavController,
+                hospitalRepository: HospitalViewModel, hospitalImage:String) {
 
     //1 item
     Column(modifier = Modifier
         .fillMaxWidth(),
         verticalArrangement = Arrangement.Center
-
     ) {
         Card (modifier = Modifier
-            .height(250.dp)
+            .height(300.dp)
+            .padding(bottom = 20.dp, top = 20.dp)
             .fillMaxWidth()
-            .padding(20.dp)
         ) {
-            Box (modifier = Modifier
-                .fillMaxSize(),
+            Box (modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center) {
                 Image(
-                    painter = rememberAsyncImagePainter(wardImage),
+                    painter = rememberAsyncImagePainter(hospitalImage),
                     contentDescription = "null",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
@@ -202,15 +196,6 @@ fun WardItem2(name:String, id:String,
                             color = Color.White
                         )
 
-
-                        Spacer(modifier = Modifier.height(5.dp))
-
-
-                        val mContext = LocalContext.current
-
-
-                        //end details
-
                     }
                 }
 
@@ -225,8 +210,8 @@ fun WardItem2(name:String, id:String,
 
 @Composable
 @Preview(showBackground = true)
-fun ViewWardsScreen2Preview(){
+fun ViewHospital2ScreenPreview(){
 
-    ViewWardsScreen2(navController = rememberNavController())
+    ViewHospital2Screen(navController = rememberNavController())
 
 }

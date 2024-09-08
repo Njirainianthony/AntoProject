@@ -1,4 +1,4 @@
-package com.example.antoproject.ui.theme.screens.wards
+package com.example.antoproject.ui.theme.screens.hospitals
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -67,15 +67,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.antoproject.R
-import com.example.antoproject.data.NurseViewModel
-import com.example.antoproject.data.WardViewModel
-import com.example.antoproject.navigation.ADD_NURSES_URL
+import com.example.antoproject.data.HospitalViewModel
+import com.example.antoproject.data.ProductViewModel
+import com.example.antoproject.navigation.ADD_HOSPITAL_URL
+import com.example.antoproject.navigation.ADD_PRODUCTS_URL
 import com.example.antoproject.ui.theme.Bluey
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddWardsScreen(navController: NavController){
+fun AddHospitalScreen(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -134,7 +135,7 @@ fun AddWardsScreen(navController: NavController){
                     containerColor = Color.Black
                 ) {
                     IconButton(onClick = {
-                        navController.navigate(ADD_NURSES_URL)
+                        navController.navigate(ADD_HOSPITAL_URL)
                     },
                     ) {
                         Icon(imageVector = Icons.Default.Add,
@@ -145,14 +146,12 @@ fun AddWardsScreen(navController: NavController){
             //Content Section
             content = @Composable {
                 Card(colors = CardDefaults.cardColors(Color.White),
-                    shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 30.dp, bottomEnd = 30.dp),
-
-                    modifier = Modifier.padding(start = 30.dp, end = 30.dp, top = 80.dp, bottom = 150.dp)) {
+                    modifier = Modifier.padding(start = 30.dp, top = 30.dp, bottom = 150.dp, end = 30.dp)) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState())
-                            .padding(top = 80.dp, start = 30.dp, end = 30.dp,)
+                            .padding(30.dp)
                         ,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
@@ -161,37 +160,30 @@ fun AddWardsScreen(navController: NavController){
                             painter = painterResource(id = R.drawable.wardicon),
                             contentDescription ="home",
                             modifier = Modifier
-                                .size(150.dp),
+                                .size(150.dp).padding(20.dp),
                             contentScale = ContentScale.Crop,
 
 
                             )
 
 
-
-
-                        Spacer(modifier = Modifier.height(50.dp))
+                        Spacer(modifier = Modifier.height(15.dp))
 
                         Text(
-                            text = "Add Here!",
+                            text = "Upload Here!",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Serif)
 
-                        var wardName by remember { mutableStateOf("") }
+                        var hospitalName by remember { mutableStateOf("") }
                         val context = LocalContext.current
-
-
 
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedTextField(
-                            value = wardName,
-                            onValueChange = { wardName = it },
-                            label = { Text(
-                                text = "Enter Name",
-                                fontFamily = FontFamily.Serif
-                            ) },
+                            value = hospitalName,
+                            onValueChange = { hospitalName = it },
+                            label = { Text(text = "Section name ", color = Color.Black, fontFamily = FontFamily.Serif) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                         )
 
@@ -202,11 +194,10 @@ fun AddWardsScreen(navController: NavController){
 
 
 
-
                         //---------------------IMAGE PICKER START-----------------------------------//
 
                         var modifier = Modifier
-                        ImagePicker(modifier,context, navController, wardName.trim())
+                        ImagePicker(modifier,context, navController, hospitalName.trim())
 
                         //---------------------IMAGE PICKER END-----------------------------------//
 
@@ -241,7 +232,7 @@ val bottomNavItems = listOf(
 
     BottomNavItem(
         title = "Upload",
-        route="addwards",
+        route="addhospital",
         selectedIcon= Icons.Filled.Add,
         unselectedIcon= Icons.Outlined.Add,
         hasNews = true,
@@ -250,7 +241,7 @@ val bottomNavItems = listOf(
 
     BottomNavItem(
         title = "View",
-        route="viewwards",
+        route="viewhospital",
         selectedIcon= Icons.Filled.Info,
         unselectedIcon= Icons.Outlined.Info,
         hasNews = true,
@@ -273,7 +264,7 @@ data class BottomNavItem(
 
 
 @Composable
-fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: NavController, wardName:String) {
+fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: NavController, name:String) {
     var hasImage by remember { mutableStateOf(false) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -310,7 +301,7 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: N
                 colors = ButtonDefaults.buttonColors(Color.Black)
             ) {
                 Text(
-                    text = "Upload Photo"
+                    text = "Select Image"
                 )
             }
 
@@ -318,14 +309,15 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: N
 
             Button(onClick = {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
-                var wardRepository = WardViewModel(navController,context)
-                wardRepository.uploadWard(wardName,imageUri!!)
+                var hospitalRepository = HospitalViewModel(navController,context)
+                hospitalRepository.uploadHospital(name,imageUri!!)
+
 
 
             },
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(Color.Black)) {
-                Text(text = "Add Ward")
+                Text(text = "Upload")
             }
         }
     }
@@ -333,7 +325,7 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: N
 
 @Composable
 @Preview(showBackground = true)
-fun AddWardsScreenPreview(){
-    AddWardsScreen(navController = rememberNavController())
+fun AddHospitalScreenPreview(){
+    AddHospitalScreen(navController = rememberNavController())
 
 }

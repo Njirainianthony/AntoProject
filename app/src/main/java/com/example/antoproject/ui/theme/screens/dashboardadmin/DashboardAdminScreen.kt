@@ -30,18 +30,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.antoproject.R
 import com.example.antoproject.navigation.ADD_DOCTORS_URL
+import com.example.antoproject.navigation.ADD_HOSPITAL_URL
 import com.example.antoproject.navigation.ADD_NURSES_URL
 import com.example.antoproject.navigation.ADD_PRODUCTS_URL
-import com.example.antoproject.navigation.ADD_WARDS_URL
 import com.example.antoproject.navigation.ROUT_ABOUT
 import com.example.antoproject.navigation.ROUT_ADMIN
 import com.example.antoproject.navigation.ROUT_GALLERY
 import com.example.antoproject.navigation.ROUT_HOME
 import com.example.antoproject.navigation.VIEW_BOOKING_URL
 import com.example.antoproject.navigation.VIEW_DOCTORS_URL
+import com.example.antoproject.navigation.VIEW_HOSPITAL_URL
 import com.example.antoproject.navigation.VIEW_NURSES_URL
 import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
-import com.example.antoproject.navigation.VIEW_WARDS_URL
 import com.example.antoproject.ui.theme.Bluey
 
 @Composable
@@ -56,7 +56,7 @@ fun DashboardAdminScreen(navController: NavController){
         Card(colors = CardDefaults.cardColors(Bluey),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 20.dp, bottom = 20.dp)
+                .padding(top = 30.dp, bottom = 20.dp)
                 .verticalScroll(rememberScrollState())
         ) {
 
@@ -102,7 +102,7 @@ fun DashboardAdminScreen(navController: NavController){
                 }
                 //END OF CARD 1
 
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(35.dp))
 
                 //CARD 2
                 Card (modifier = Modifier
@@ -193,7 +193,7 @@ fun DashboardAdminScreen(navController: NavController){
                 }
                 //END OF CARD 1
 
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(35.dp))
 
                 //CARD 2
                 Card (modifier = Modifier
@@ -247,7 +247,7 @@ fun DashboardAdminScreen(navController: NavController){
                 Card (modifier = Modifier
                     .width(163.dp)
                     .height(180.dp)
-                    .clickable { navController.navigate(ADD_WARDS_URL) },
+                    .clickable { navController.navigate(ADD_HOSPITAL_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
 
@@ -269,7 +269,7 @@ fun DashboardAdminScreen(navController: NavController){
                         Spacer(modifier = Modifier.height(15.dp))
 
                         Text(
-                            text = "Add Wards",
+                            text = "Add Hospital",
                             fontSize = 18.sp,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center,
@@ -282,13 +282,13 @@ fun DashboardAdminScreen(navController: NavController){
                 }
                 //END OF CARD 1
 
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(35.dp))
 
                 //CARD 2
                 Card (modifier = Modifier
                     .width(170.dp)
                     .height(180.dp)
-                    .clickable { navController.navigate(VIEW_WARDS_URL) },
+                    .clickable { navController.navigate(VIEW_HOSPITAL_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
 
@@ -310,7 +310,7 @@ fun DashboardAdminScreen(navController: NavController){
                         Spacer(modifier = Modifier.height(15.dp))
 
                         Text(
-                            text = "View Wards",
+                            text = "View Hospitals",
                             fontSize = 18.sp,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center,
@@ -369,7 +369,7 @@ fun DashboardAdminScreen(navController: NavController){
                 }
                 //END OF CARD 1
 
-                Spacer(modifier = Modifier.width(30.dp))
+                Spacer(modifier = Modifier.width(35.dp))
 
                 //CARD 2
                 Card (modifier = Modifier

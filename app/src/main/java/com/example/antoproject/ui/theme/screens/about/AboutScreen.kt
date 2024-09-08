@@ -224,7 +224,7 @@ fun AboutScreen(navController: NavController){
                 onClick = {
                     val smsIntent= Intent(Intent.ACTION_SENDTO)
                     smsIntent.data="smsto:0706572440".toUri()
-                    smsIntent.putExtra("sms_body","Hello Anthony,how can we help?")
+                    smsIntent.putExtra("sms_body","Hello Patient,how can we help?")
                     mContext.startActivity(smsIntent)
                 },
                 modifier = Modifier.width(130.dp),

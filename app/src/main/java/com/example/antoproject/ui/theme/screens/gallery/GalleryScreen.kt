@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,12 +33,11 @@ import com.example.antoproject.R
 import com.example.antoproject.navigation.ROUT_HOME
 import com.example.antoproject.navigation.VIEW_DOCTORS2_URL
 import com.example.antoproject.navigation.VIEW_DOCTORS_URL
+import com.example.antoproject.navigation.VIEW_HOSPITAL2_URL
 import com.example.antoproject.navigation.VIEW_NURSES2_URL
 import com.example.antoproject.navigation.VIEW_NURSES_URL
 import com.example.antoproject.navigation.VIEW_PRODUCTS2_URL
 import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
-import com.example.antoproject.navigation.VIEW_WARDS2_URL
-import com.example.antoproject.navigation.VIEW_WARDS_URL
 import com.example.antoproject.ui.theme.Bluey
 
 @Composable
@@ -49,8 +49,9 @@ fun GalleryScreen(navController: NavController){
         Card(colors = CardDefaults.cardColors(Bluey),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 40.dp)
-                .verticalScroll(rememberScrollState())
+                .padding(start = 20.dp, top = 80.dp, end = 20.dp, bottom = 120.dp)
+                .verticalScroll(rememberScrollState()),
+            shape = RoundedCornerShape(20.dp)
         ) {
             //ROW 1
 
@@ -162,7 +163,7 @@ fun GalleryScreen(navController: NavController){
                     .fillMaxWidth()
                     .height(230.dp)
                     .padding(20.dp)
-                    .clickable { navController.navigate(VIEW_WARDS2_URL) },
+                    .clickable { navController.navigate(VIEW_HOSPITAL2_URL) },
                     elevation = CardDefaults.cardElevation(30.dp)
                 ){
 
@@ -184,7 +185,7 @@ fun GalleryScreen(navController: NavController){
                         Spacer(modifier = Modifier.height(15.dp))
 
                         Text(
-                            text = "View Wards",
+                            text = "View Hospital",
                             fontSize = 18.sp,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center,

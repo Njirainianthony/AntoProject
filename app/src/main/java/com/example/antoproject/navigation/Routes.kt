@@ -22,10 +22,11 @@ const val ADD_NURSES_URL="addnurses"
 const val VIEW_NURSES_URL="viewnurses"
 const val VIEW_NURSES2_URL="viewnurses2"
 
-const val ADD_WARDS_URL="addwards"
-const val VIEW_WARDS_URL="viewwards"
-const val VIEW_WARDS2_URL="viewwards2"
 
 const val ADD_BOOKING_URL="addbooking"
 const val VIEW_BOOKING_URL="viewbooking"
+
+const val ADD_HOSPITAL_URL="addhospital"
+const val VIEW_HOSPITAL_URL="viewhospital"
+const val VIEW_HOSPITAL2_URL="viewhospital2"
 

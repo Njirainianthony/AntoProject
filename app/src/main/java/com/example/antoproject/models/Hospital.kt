@@ -1,6 +1,6 @@
 package com.example.antoproject.models
 
-class Ward{
+class Hospital {
     var name:String = ""
     var imageUrl:String = ""
     var id:String = ""

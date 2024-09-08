@@ -137,7 +137,7 @@ fun ViewProductsScreen(navController: NavController) {
                     title = {
                         Row {
 
-                            Image(painter = painterResource(id = R.drawable.canteenicon),
+                            Image(painter = painterResource(id = R.drawable.pharmacyicon),
                                 contentDescription = "home",
                                 modifier = Modifier.size(20.dp),
                                 colorFilter = ColorFilter.tint(Color.White)

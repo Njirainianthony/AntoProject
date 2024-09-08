@@ -18,6 +18,9 @@ import com.example.antoproject.ui.theme.screens.doctors.ViewDoctorScreen2
 import com.example.antoproject.ui.theme.screens.gallery.GalleryScreen
 
 import com.example.antoproject.ui.theme.screens.home.HomeScreen
+import com.example.antoproject.ui.theme.screens.hospitals.AddHospitalScreen
+import com.example.antoproject.ui.theme.screens.hospitals.ViewHospital2Screen
+import com.example.antoproject.ui.theme.screens.hospitals.ViewHospitalScreen
 import com.example.antoproject.ui.theme.screens.login.LoginScreen
 import com.example.antoproject.ui.theme.screens.nurses.AddNursesScreen
 import com.example.antoproject.ui.theme.screens.nurses.ViewNursesScreen
@@ -26,9 +29,6 @@ import com.example.antoproject.ui.theme.screens.products.AddProductsScreen
 import com.example.antoproject.ui.theme.screens.products.ViewProducts2Screen
 import com.example.antoproject.ui.theme.screens.signup.SignUpScreen
 import com.example.antoproject.ui.theme.screens.splash.SplashScreen
-import com.example.antoproject.ui.theme.screens.wards.AddWardsScreen
-import com.example.antoproject.ui.theme.screens.wards.ViewWardsScreen
-import com.example.antoproject.ui.theme.screens.wards.ViewWardsScreen2
 import com.example.propertyplus.ui.theme.screens.products.ViewProductsScreen
 
 @Composable
@@ -115,24 +115,24 @@ fun AppNavHost(
             ViewNursesScreen2(navController = navController)
         }
 
-        composable(ADD_WARDS_URL) {
-            AddWardsScreen(navController = navController)
-        }
-
-        composable(VIEW_WARDS_URL) {
-            ViewWardsScreen(navController = navController)
-        }
-
-        composable(VIEW_WARDS2_URL) {
-            ViewWardsScreen2(navController = navController)
-        }
-
         composable(ADD_BOOKING_URL) {
             AddBookingScreen(navController = navController)
         }
 
         composable(VIEW_BOOKING_URL) {
             ViewBookingScreen(navController = navController)
+        }
+
+        composable(ADD_HOSPITAL_URL) {
+            AddHospitalScreen(navController = navController)
+        }
+
+        composable(VIEW_HOSPITAL_URL) {
+            ViewHospitalScreen(navController = navController)
+        }
+
+        composable(VIEW_HOSPITAL2_URL) {
+            ViewHospital2Screen(navController = navController)
         }
 
 

@@ -25,9 +25,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
@@ -227,10 +229,10 @@ fun AddNursesScreen(navController: NavController){
 
 val bottomNavItems = listOf(
     BottomNavItem(
-        title = "Home",
-        route="home",
-        selectedIcon= Icons.Filled.Home,
-        unselectedIcon= Icons.Outlined.Home,
+        title = "Dashboard",
+        route="dashadmin",
+        selectedIcon= Icons.Filled.Menu,
+        unselectedIcon= Icons.Outlined.Menu,
         hasNews = false,
         badges=0
     ),

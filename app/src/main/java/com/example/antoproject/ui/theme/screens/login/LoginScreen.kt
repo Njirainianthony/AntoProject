@@ -62,7 +62,6 @@ fun LoginScreen(navController: NavController){
 
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(top = 30.dp, bottom = 30.dp)
         .background(Bluey),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -73,7 +72,7 @@ fun LoginScreen(navController: NavController){
             painter = painterResource(id = R.drawable.hospitalicon),
             contentDescription ="home",
             modifier = Modifier
-                .size(150.dp),
+                .size(160.dp).padding(20.dp),
             contentScale = ContentScale.Crop,
 
 
@@ -82,7 +81,7 @@ fun LoginScreen(navController: NavController){
         Spacer(modifier = Modifier.height(30.dp))
 
         Text(
-            text = "Welcome Back!!",
+            text = "Welcome!!",
             fontSize = 30.sp,
             fontFamily = FontFamily.Monospace,
             color = Color.Black,

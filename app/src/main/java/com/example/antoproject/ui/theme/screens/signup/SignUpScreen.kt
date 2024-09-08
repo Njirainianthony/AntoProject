@@ -71,7 +71,6 @@ fun SignUpScreen(navController: NavController){
 
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 30.dp, bottom = 30.dp)
             .verticalScroll(rememberScrollState())
             .background(Bluey),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -86,7 +85,7 @@ fun SignUpScreen(navController: NavController){
             painter = painterResource(id = R.drawable.hospitalicon),
             contentDescription ="hospital",
             modifier = Modifier
-                .size(180.dp),
+                .size(160.dp).padding(20.dp),
             contentScale = ContentScale.Crop,
 
 

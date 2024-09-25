@@ -15,6 +15,7 @@ import com.example.antoproject.ui.theme.screens.dashboardadmin.DashboardAdminScr
 import com.example.antoproject.ui.theme.screens.doctors.AddDoctorsScreen
 import com.example.antoproject.ui.theme.screens.doctors.ViewDoctorScreen
 import com.example.antoproject.ui.theme.screens.doctors.ViewDoctorScreen2
+import com.example.antoproject.ui.theme.screens.donations.AddDonationScreen
 import com.example.antoproject.ui.theme.screens.gallery.GalleryScreen
 
 import com.example.antoproject.ui.theme.screens.home.HomeScreen
@@ -133,6 +134,14 @@ fun AppNavHost(
 
         composable(VIEW_HOSPITAL2_URL) {
             ViewHospital2Screen(navController = navController)
+        }
+
+        composable(ADD_DONATION_URL) {
+            AddDonationScreen(navController = navController)
+        }
+
+        composable(VIEW_DONATION_URL) {
+            ViewHospitalScreen(navController = navController)
         }
 
 

@@ -39,6 +39,7 @@ import com.example.antoproject.navigation.ROUT_GALLERY
 import com.example.antoproject.navigation.ROUT_HOME
 import com.example.antoproject.navigation.VIEW_BOOKING_URL
 import com.example.antoproject.navigation.VIEW_DOCTORS_URL
+import com.example.antoproject.navigation.VIEW_DONATION_URL
 import com.example.antoproject.navigation.VIEW_HOSPITAL_URL
 import com.example.antoproject.navigation.VIEW_NURSES_URL
 import com.example.antoproject.navigation.VIEW_PRODUCTS_URL
@@ -416,6 +417,93 @@ fun DashboardAdminScreen(navController: NavController){
 
             //ROW 5
 
+            Row (modifier = Modifier.padding(20.dp)){
+                //CARD 1
+                Card (modifier = Modifier
+                    .width(163.dp)
+                    .height(180.dp)
+                    .clickable { navController.navigate(ADD_PRODUCTS_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Image(painter = painterResource(id = R.drawable.noticeicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "Add Notice",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                    }
+
+
+                }
+                //END OF CARD 1
+
+                Spacer(modifier = Modifier.width(35.dp))
+
+                //CARD 2
+                Card (modifier = Modifier
+                    .width(170.dp)
+                    .height(180.dp)
+                    .clickable { navController.navigate(VIEW_PRODUCTS_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Image(painter = painterResource(id = R.drawable.noticeicon),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "View Notice",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                    }
+
+
+                }
+                //END OF CARD 2
+
+
+            }
+            //END OF ROW 5
+
+            //ROW 6
+
             Row (modifier = Modifier.fillMaxWidth()){
                 //CARD 1
                 Card (modifier = Modifier
@@ -461,7 +549,56 @@ fun DashboardAdminScreen(navController: NavController){
 
             }
 
-            //END OF ROW 5
+            //END OF ROW 6
+
+            //ROW 7
+
+            Row (modifier = Modifier.fillMaxWidth()){
+                //CARD 1
+                Card (modifier = Modifier
+                    .fillMaxWidth()
+                    .height(230.dp)
+                    .padding(20.dp)
+                    .clickable { navController.navigate(VIEW_DONATION_URL) },
+                    elevation = CardDefaults.cardElevation(30.dp)
+                ){
+
+                    Column() {
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Box (modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Image(painter = painterResource(id = R.drawable.blooddonations),
+                                contentDescription = "home",
+                                modifier = Modifier.size(70.dp)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        Text(
+                            text = "View Donations",
+                            fontSize = 18.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                    }
+
+
+                }
+                //END OF CARD 1
+
+            }
+
+            //END OF ROW 7
         }
 
 

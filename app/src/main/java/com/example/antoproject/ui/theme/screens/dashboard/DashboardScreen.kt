@@ -51,6 +51,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.antoproject.R
 import com.example.antoproject.navigation.ADD_BOOKING_URL
+import com.example.antoproject.navigation.ADD_DONATION_URL
 import com.example.antoproject.navigation.ROUT_ABOUT
 import com.example.antoproject.navigation.ROUT_ADMIN
 import com.example.antoproject.navigation.ROUT_GALLERY
@@ -384,6 +385,93 @@ fun DashboardScreen(navController: NavController){
 
                                 Text(
                                     text = "Gallery Section",
+                                    fontSize = 18.sp,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    textAlign = TextAlign.Center,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                            }
+
+
+                        }
+                        //END OF CARD 2
+
+
+                    }
+                    //END OF ROW 3
+
+                    //ROW 4
+
+                    Row (modifier = Modifier.padding(20.dp)){
+                        //CARD 1
+                        Card (modifier = Modifier
+                            .width(170.dp)
+                            .height(180.dp)
+                            .clickable { navController.navigate(ADD_DONATION_URL) },
+                            elevation = CardDefaults.cardElevation(30.dp)
+                        ){
+
+                            Column() {
+
+                                Spacer(modifier = Modifier.height(20.dp))
+
+
+                                Box (modifier = Modifier.fillMaxWidth(),
+                                    contentAlignment = Alignment.Center
+                                ){
+                                    Image(painter = painterResource(id = R.drawable.blooddonations),
+                                        contentDescription = "home",
+                                        modifier = Modifier.size(70.dp)
+                                    )
+
+                                }
+
+                                Spacer(modifier = Modifier.height(15.dp))
+
+                                Text(
+                                    text = "Blood Donations",
+                                    fontSize = 18.sp,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    textAlign = TextAlign.Center,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                            }
+
+
+                        }
+                        //END OF CARD 1
+
+                        Spacer(modifier = Modifier.width(35.dp))
+
+                        //CARD 2
+                        Card (modifier = Modifier
+                            .width(170.dp)
+                            .height(180.dp)
+                            .clickable { navController.navigate(ROUT_GALLERY) },
+                            elevation = CardDefaults.cardElevation(30.dp)
+                        ){
+
+                            Column() {
+
+                                Spacer(modifier = Modifier.height(20.dp))
+
+
+                                Box (modifier = Modifier.fillMaxWidth(),
+                                    contentAlignment = Alignment.Center
+                                ){
+                                    Image(painter = painterResource(id = R.drawable.noticeicon),
+                                        contentDescription = "home",
+                                        modifier = Modifier.size(70.dp)
+                                    )
+
+                                }
+
+                                Spacer(modifier = Modifier.height(15.dp))
+
+                                Text(
+                                    text = "Notice",
                                     fontSize = 18.sp,
                                     modifier = Modifier.fillMaxWidth(),
                                     textAlign = TextAlign.Center,

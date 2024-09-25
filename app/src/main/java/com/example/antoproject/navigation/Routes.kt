@@ -30,6 +30,4 @@ const val ADD_HOSPITAL_URL="addhospital"
 const val VIEW_HOSPITAL_URL="viewhospital"
 const val VIEW_HOSPITAL2_URL="viewhospital2"
 
-const val ADD_DONATION_URL="adddonation"
-const val VIEW_DONATION_URL="viewdonation"
 
